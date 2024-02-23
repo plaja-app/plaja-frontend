@@ -1,0 +1,1 @@
+<p>Course content goes here</p>

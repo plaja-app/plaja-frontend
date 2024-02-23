@@ -1,0 +1,7 @@
+<script lang="ts">
+	import { Input } from '$lib/components/ui/input/index';
+</script>
+
+<div class="flex items-end gap-2">
+	<Input type="search" placeholder="Пошук..."> </Input>
+</div>
