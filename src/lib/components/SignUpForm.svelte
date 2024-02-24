@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { EyeClosed, LinkedinLogo } from 'radix-icons-svelte';
-	import { EyeOpen } from 'radix-icons-svelte';
+	import { LinkedinLogo } from 'radix-icons-svelte';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { cn } from "$lib/utils";
 	import PasswordInput from '$lib/components/PasswordInput.svelte';
+	import { Checkbox } from '$lib/components/ui/checkbox';
 
 	let className: string | undefined | null = undefined;
 	export { className as class };
@@ -20,6 +20,7 @@
 	}
 
 	let isPasswordVisible = false;
+	let checked = false;
 
 	function togglePassword() {
 		isPasswordVisible = !isPasswordVisible;
@@ -58,6 +59,16 @@
 			<div class="grid gap-1">
 				<Label for="password">Пароль</Label>
 				<PasswordInput id="password" required />
+			</div>
+
+			<div class="flex space-x-2 py-2">
+				<Checkbox id="terms" bind:checked />
+				<Label
+					for="terms"
+					class="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+				>
+					Надсилайте мені спеціальні пропозиції та персоналізовані рекомендації.
+				</Label>
 			</div>
 
 			<Button disabled={isLoading}>

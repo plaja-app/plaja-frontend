@@ -4,6 +4,23 @@
 	import Search from '$lib/components/Search.svelte';
 	import UserNavbar from '$lib/components/UserNavbar.svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
+	import { onMount } from 'svelte';
+
+	interface Category {
+		ID: string;
+		Title: string;
+	}
+
+	let categories: Category[] = [];
+
+	async function fetchData() {
+		const response = await fetch('/api/v1/course_categories?id=all&sort=title');
+		categories = await response.json();
+	}
+
+	onMount(() => {
+		fetchData();
+	});
 </script>
 
 <nav class="flex items-center justify-between px-4 bg-white">
@@ -16,39 +33,16 @@
 	<div class="flex items-end gap-2 pl-2">
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild let:builder>
-				<Button builders={[builder]} variant="link" href="/">Курси</Button>
+				<Button builders={[builder]} variant="link" href="/courses">Курси</Button>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content class="w-56">
-				<DropdownMenu.Item>Усі</DropdownMenu.Item>
-
+				<DropdownMenu.Item href="/courses">Усі</DropdownMenu.Item>
 				<DropdownMenu.Separator />
 
-					<DropdownMenu.Sub>
-						<DropdownMenu.SubTrigger>Веб-розробка</DropdownMenu.SubTrigger>
-						<DropdownMenu.SubContent>
-							<DropdownMenu.Item>SvelteKit</DropdownMenu.Item>
-							<DropdownMenu.Item>JavaScript</DropdownMenu.Item>
-							<DropdownMenu.Item>TypeScript</DropdownMenu.Item>
-						</DropdownMenu.SubContent>
-					</DropdownMenu.Sub>
+				{#each categories as category (category.ID)}
+					<DropdownMenu.Item>{category.Title}</DropdownMenu.Item>
+				{/each}
 
-				<DropdownMenu.Sub>
-					<DropdownMenu.SubTrigger>Мови програмування</DropdownMenu.SubTrigger>
-					<DropdownMenu.SubContent>
-						<DropdownMenu.Item>Go</DropdownMenu.Item>
-						<DropdownMenu.Item>Python</DropdownMenu.Item>
-						<DropdownMenu.Item>C++</DropdownMenu.Item>
-					</DropdownMenu.SubContent>
-
-					<DropdownMenu.Sub>
-						<DropdownMenu.SubTrigger>Бази даних</DropdownMenu.SubTrigger>
-						<DropdownMenu.SubContent>
-							<DropdownMenu.Item>SQL</DropdownMenu.Item>
-							<DropdownMenu.Item>MySQL</DropdownMenu.Item>
-							<DropdownMenu.Item>PostgreSQL</DropdownMenu.Item>
-						</DropdownMenu.SubContent>
-					</DropdownMenu.Sub>
-				</DropdownMenu.Sub>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>
 		<Button variant="link" href="/teaching/apply">Викладати на Plaja</Button>
