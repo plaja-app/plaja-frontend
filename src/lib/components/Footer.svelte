@@ -4,7 +4,7 @@
 </script>
 
 <div style="background-color: #F4F4F5;">
-	<div class="container lg:grid lg:grid-cols-2 py-8">
+	<div class="container lg:grid lg:grid-cols-3 py-8">
 		<div>
 			<p class="font-semibold text-xl">Plaja</p>
 			<div class="grid place-items-start pt-2">
@@ -13,6 +13,13 @@
 				<Button variant="link" class="p-0 font-normal"  href="/terms/privacy">Політика конфіденційності</Button>
 			</div>
 			<p class="pt-6 text-sm">© Plaja, 2024</p>
+		</div>
+
+		<div>
+			<p class="font-semibold text-xl">Інше</p>
+			<div class="grid place-items-start pt-2">
+				<Button variant="link" class="p-0 font-normal" href="/validate">Валідація сертифікатів</Button>
+			</div>
 		</div>
 
 		<div class="grid">

@@ -5,7 +5,7 @@ import { Button } from '$lib/components/ui/button/index';
 
 <div>
 	<Button variant="outline">
+		<span class="pe-2">Ukrainian</span>
 		<Globe class="h-4 w-4" />
-		<span class="ps-2">Ukrainian</span>
 	</Button>
 </div>

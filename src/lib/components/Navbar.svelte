@@ -4,23 +4,21 @@
 	import Search from '$lib/components/Search.svelte';
 	import UserNavbar from '$lib/components/UserNavbar.svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
-	import { onMount } from 'svelte';
 
-	interface Category {
-		ID: string;
-		Title: string;
-	}
+	export let categories: CourseCategory[] = []
 
-	let categories: Category[] = [];
-
-	async function fetchData() {
-		const response = await fetch('/api/v1/course_categories?id=all&sort=title');
-		categories = await response.json();
-	}
-
-	onMount(() => {
-		fetchData();
-	});
+	// import { onMount } from 'svelte';
+	//
+	// let categories: CourseCategory[] = [];
+	//
+	// async function fetchData() {
+	// 	const response = await fetch('/api/v1/course_categories?id=all&sort=title');
+	// 	categories = await response.json();
+	// }
+	//
+	// onMount(() => {
+	// 	fetchData();
+	// });
 </script>
 
 <nav class="flex items-center justify-between px-4 bg-white">
@@ -40,7 +38,7 @@
 				<DropdownMenu.Separator />
 
 				{#each categories as category (category.ID)}
-					<DropdownMenu.Item>{category.Title}</DropdownMenu.Item>
+					<DropdownMenu.Item href="?q={category.Title}">{category.Title}</DropdownMenu.Item>
 				{/each}
 
 			</DropdownMenu.Content>

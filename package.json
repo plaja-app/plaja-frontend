@@ -41,6 +41,7 @@
 		"tailwind-merge": "^2.2.1",
 		"tailwind-variants": "^0.1.20",
 		"typesafe-i18n": "^5.26.2",
-		"zod": "^3.22.4"
+		"zod": "^3.22.4",
+		"zod-client": "^0.0.1"
 	}
 }

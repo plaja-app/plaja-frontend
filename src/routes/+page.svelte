@@ -12,8 +12,8 @@
 					Нова українська навчальна платформа для опанування сучасних IT-технологій
 				</p>
 			</div>
-			<Button>
-				<Rocket class="mr-2 h-4 w-4" />
+			<Button class="h-11 px-5">
+				<Rocket class="mr-2 h- w-4" />
 				Перейти до курсів
 			</Button>
 		</div>

@@ -6,7 +6,7 @@
 	<div class="lg:p-8">
 		<div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
 			<div class="flex flex-col space-y-2 text-center">
-				<h1 class="text-2xl font-semibold">Створити акаунт</h1>
+				<h1 class="text-2xl font-semibold">Увійти в акаунт</h1>
 			</div>
 			<UserAuthForm />
 			<p class="px-8 text-center text-sm text-muted-foreground">

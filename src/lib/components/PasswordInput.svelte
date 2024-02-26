@@ -4,7 +4,6 @@
 	import { Input } from '$lib/components/ui/input';
 
 	export let id: string;
-	export let placeholder: string = 'Пароль';
 	export let disabled: boolean = false;
 	export let required: boolean = false;
 
@@ -19,7 +18,7 @@
 	<Input
 		{id}
 		class="flex-grow"
-		{placeholder}
+		placeholder="Пароль"
 		type={isPasswordVisible ? 'text' : 'password'}
 		{disabled}
 		{required}
@@ -27,9 +26,9 @@
 
 	<Button variant="outline" on:click={togglePasswordVisibility} class="shrink-0">
 		{#if isPasswordVisible}
-			<EyeClosed />
-		{:else}
 			<EyeOpen />
+		{:else}
+			<EyeClosed />
 		{/if}
 	</Button>
 </div>

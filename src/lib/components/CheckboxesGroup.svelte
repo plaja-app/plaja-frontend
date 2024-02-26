@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
+	import { Checkbox } from "$lib/components/ui/checkbox";
+
+	export let label: string;
 
 	const items = [
 		{ id: "item1", label: "Item 1", checked: false },
@@ -23,12 +24,32 @@
 </script>
 
 <div class="grid items-start">
+	<div>
+		<p class="font-medium pb-2">{label}</p>
+	</div>
 	{#each items as item}
-		<div>
-			<Checkbox  onCheckedChange={(checked) => handleCheckedChange(item.id, checked)}/>
-			<Label>
+		<div class="flex items-center space-x-2 pb-1">
+			<div class="pr-1">
+				<Checkbox onCheckedChange={(checked) => handleCheckedChange(item.id, !!checked)}/>
+			</div>
+			<p class="font-normal">
 				{item.label}
-			</Label>
+			</p>
 		</div>
 	{/each}
 </div>
+
+
+<!--<form action="?/filter" method="POST" class="space-y-8" use:enhance>-->
+<!--	<Form.Fieldset {form} name="items" class="space-y-0">>-->
+<!--		<Form.Label>Мова</Form.Label>-->
+<!--		{#each items as item}-->
+<!--				<Form.Control>-->
+<!--					<Form.Checkbox onCheckedChange={(checked) => handleCheckedChange(item.id, checked)}/>-->
+<!--					<Form.Label class="font-normal">-->
+<!--						{item.label}-->
+<!--					</Form.Label>-->
+<!--				</Form.Control>-->
+<!--		{/each}-->
+<!--	</Form.Fieldset>-->
+<!--</form>-->
