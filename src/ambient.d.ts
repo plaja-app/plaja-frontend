@@ -28,3 +28,15 @@ type Course = {
 	HasCertificate: boolean,
 	Categories: CourseCategory[],
 }
+
+type CookieAttributes = {
+	value: string;
+	maxAge?: number;
+	httpOnly?: boolean;
+	sameSite?: 'Lax' | 'Strict' | 'None';
+};
+
+type Cookie = {
+	name: string;
+	attributes: CookieAttributes;
+};

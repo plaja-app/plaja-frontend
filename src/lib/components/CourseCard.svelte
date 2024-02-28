@@ -14,9 +14,9 @@
 
 </script>
 
-<Card.Root class="shadow-sm transition-all ease-in  duration-200 hover:shadow-lg cursor-pointer"
+<Card.Root class="shadow-sm border-b border-border/40 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60 transition-all ease-in-out duration-175 hover:shadow-lg transform hover:-translate-y-1 cursor-pointer"
 					 on:click={() => {
-							 if (!window.getSelection().toString()) {
+							 if (!window.getSelection()?.toString()) {
 								 location.href = `courses/${course.ID}`
 							 }}
 						 }>

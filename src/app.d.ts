@@ -6,7 +6,9 @@ declare global {
 			code: string;
 			id: string;
 		}
-		// interface Locals {}
+		interface Locals {
+			user?: User,
+		}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}

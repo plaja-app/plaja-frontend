@@ -1,9 +1,10 @@
 import type { LayoutServerLoad } from './$types';
+import { BackendURL } from '$lib';
 
-export const load: LayoutServerLoad = async ({ fetch }) => {
+export const load: LayoutServerLoad = async ({ locals }) => {
 
-	const response = await fetch('/api/v1/course_categories?id=all&sort=title');
+	const response = await fetch(`${BackendURL}/api/v1/course-categories?id=all&sort=title`);
 	const categories = await response.json();
 
-	return { categories };
+	return { categories, locals };
 }

@@ -1,9 +1,10 @@
 <script lang="ts">
 	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
 	import { Button } from '$lib/components/ui/button';
+	import { Separator } from '$lib/components/ui/separator';
 </script>
 
-<div style="background-color: #F4F4F5;">
+<div class="border-t border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 ">
 	<div class="container lg:grid lg:grid-cols-3 py-8">
 		<div>
 			<p class="font-semibold text-xl">Plaja</p>
