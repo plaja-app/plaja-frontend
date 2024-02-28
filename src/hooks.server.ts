@@ -16,13 +16,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 			}
 		});
 
-		console.log("Response: ", response)
-
 		if (response.ok) {
 			const fullUser = await response.json();
 
-			// Adjust the user data to match the User type structure
-			const user: User = {
+			event.locals.user = {
 				ID: fullUser.ID,
 				FirstName: fullUser.FirstName,
 				LastName: fullUser.LastName,
@@ -30,9 +27,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 				UserName: fullUser.UserName
 			};
 
-			event.locals.user = user;
-
-			console.log("USER: ", event.locals.user)
 		} else {
 			event.cookies.delete("pja_user_jwt", {
 				path: '/',

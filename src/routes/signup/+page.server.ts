@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from "./$types";
 import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
-import { fail } from "@sveltejs/kit";
+import { fail, redirect } from '@sveltejs/kit';
 import { toast } from 'svelte-sonner';
 import { BackendURL } from '$lib';
 
@@ -29,10 +29,9 @@ export const actions: Actions = {
 				body: JSON.stringify(form.data)
 			});
 
-		console.log(form)
-
 		if (response.ok) {
 			toast.success("Account created!")
+			redirect(303, '/login')
 		}
 
 		return {

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index';
 	import { Rocket } from 'radix-icons-svelte';
+	import { ArrowRight } from 'radix-icons-svelte';
 </script>
 
 <div class="container relative hidden flex-col items-center justify-center center md:grid lg:max-w-none lg:px-0 sm:h-[550px]">
@@ -12,9 +13,9 @@
 					Нова українська навчальна платформа для опанування сучасних IT-технологій
 				</p>
 			</div>
-			<Button class="h-11 px-5">
-				<Rocket class="mr-2 h- w-4" />
+			<Button href="/courses" class="h-11 px-5">
 				Перейти до курсів
+				<ArrowRight class="ml-1 h- w-4" />
 			</Button>
 		</div>
 	</div>

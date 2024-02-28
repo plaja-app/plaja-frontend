@@ -5,40 +5,13 @@ import { formSchema } from "./schema";
 import { fail, redirect } from '@sveltejs/kit';
 import { toast } from 'svelte-sonner';
 import { BackendURL } from '$lib';
+import { parseCookies } from '$lib/utils';
 
 export const load: PageServerLoad = async () => {
 	return {
 		form: await superValidate(zod(formSchema)),
 	};
 };
-
-function parseCookies(cookieStrings: string[]): Cookie[] {
-	return cookieStrings.map((cookieString) => {
-		const parts = cookieString.split(';').map(part => part.trim());
-		const [name, value] = parts[0].split('=');
-		const attributes: CookieAttributes = { value };
-
-		parts.slice(1).forEach(part => {
-			const [key, val] = part.split('=');
-			switch (key) {
-				case 'Max-Age':
-					attributes.maxAge = parseInt(val, 10);
-					break;
-				case 'HttpOnly':
-					attributes.httpOnly = true;
-					break;
-				case 'SameSite':
-					attributes.sameSite = val as 'Lax' | 'Strict' | 'None';
-					break;
-			}
-		});
-
-		return {
-			name,
-			attributes,
-		};
-	});
-}
 
 export const actions: Actions = {
 	default: async (event) => {

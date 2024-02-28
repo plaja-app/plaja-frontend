@@ -10,20 +10,23 @@
 	export let user: User | undefined
 </script>
 
-<nav class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 flex-no-wrap flex items-center justify-between bg-white py-4 lg:flex-wrap lg:justify-start lg:py-4">
-	<div class="flex w-full flex-wrap items-center justify-between px-6">
-		<button
-			class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none lg:hidden"
-			type="button"
-			data-te-collapse-init
-			data-te-target="#navbarSupportedContent1"
-			aria-controls="navbarSupportedContent1"
-			aria-expanded="false"
-			aria-label="Toggle navigation">
-			<Button variant="outline" class="shrink-0">
-					<HamburgerMenu />
-			</Button>
-		</button>
+<nav class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md
+						supports-[backdrop-filter]:bg-background/60 flex-no-wrap flex items-center justify-between bg-white
+						py-4 lg:flex-wrap lg:justify-start lg:py-4">
+
+	<div class="flex w-full flex-wrap items-center justify-end px-6">
+<!--		<button-->
+<!--			class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none lg:hidden"-->
+<!--			type="button"-->
+<!--			data-te-collapse-init-->
+<!--			data-te-target="#navbarSupportedContent1"-->
+<!--			aria-controls="navbarSupportedContent1"-->
+<!--			aria-expanded="false"-->
+<!--			aria-label="Toggle navigation">-->
+<!--			<Button variant="outline" class="shrink-0">-->
+<!--					<HamburgerMenu />-->
+<!--			</Button>-->
+<!--		</button>-->
 
 		<div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto" data-te-collapse-item>
 			<a class="mb-4 ml-1 w-28 mr-5 flex items-center lg:mb-0" href="/">

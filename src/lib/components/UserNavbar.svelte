@@ -2,8 +2,20 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { Button } from '$lib/components/ui/button/index';
+	import { redirect } from '@sveltejs/kit';
+	import { BackendURL } from '$lib';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 
 	export let user: User | undefined
+
+	async function logout() {
+		await fetch('/logout', {
+			method: 'POST',
+			credentials: 'include',
+		});
+
+		window.location.href = '/';
+	}
 </script>
 
 	<DropdownMenu.Root>
@@ -24,11 +36,11 @@
 			</DropdownMenu.Label>
 			<DropdownMenu.Separator />
 
-			<DropdownMenu.Item>Профіль</DropdownMenu.Item>
-			<DropdownMenu.Item>Мої курси</DropdownMenu.Item>
-			<DropdownMenu.Item>Налаштування</DropdownMenu.Item>
+			<DropdownMenu.Item href="/user/{user?.ID}">Профіль</DropdownMenu.Item>
+			<DropdownMenu.Item href="/user/courses">Мої курси</DropdownMenu.Item>
+			<DropdownMenu.Item href="/user/setting">Налаштування</DropdownMenu.Item>
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item>Допомога</DropdownMenu.Item>
-			<DropdownMenu.Item><p class="text-red-600">Вийти</p></DropdownMenu.Item>
+			<DropdownMenu.Item href="/help">Допомога</DropdownMenu.Item>
+			<DropdownMenu.Item on:click={logout}><p class="text-red-600">Вийти</p></DropdownMenu.Item>
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
