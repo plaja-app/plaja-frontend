@@ -9,7 +9,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 		?.split(" ")[1];
 	const token = cookie_token ?? bearer_token;
 
-	if (token) {
+	if (token)
+	{
 		const response = await fetch(`${BackendURL}/api/v1/users/getme`, {
 			headers: {
 				'Cookie': `pja_user_jwt=${token}`,

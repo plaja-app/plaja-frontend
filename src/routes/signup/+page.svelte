@@ -12,7 +12,7 @@
 			</div>
 			<SignUpForm data={data.form} />
 			<p class="px-8 text-center text-sm text-muted-foreground">
-				Реєстраючи акаунт, ви погоджуєтеся з нашими
+				Реєструючи акаунт, ви погоджуєтеся з нашими
 				<a href="/terms" class="underline p-0 underline-offset-4 hover:text-primary">
 					Правилами використання
 				</a>
