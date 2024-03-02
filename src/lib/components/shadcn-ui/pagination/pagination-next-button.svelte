@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Pagination as PaginationPrimitive } from "bits-ui";
-	import { Button } from "$lib/components/ui/button";
+	import { Button } from "$lib/components/shadcn-ui/button";
 	import { cn } from "$lib/utils";
 	import { ChevronRight } from 'radix-icons-svelte';
 

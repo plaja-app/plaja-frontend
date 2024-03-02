@@ -1,14 +1,14 @@
 <script lang="ts">
-	import * as Form from "$lib/components/ui/form";
-	import { Input } from "$lib/components/ui/input";
-	import { formSchema, type FormSchema } from '../../routes/login/schema';
+	import * as Form from "$lib/components/shadcn-ui/form";
+	import { Input } from "$lib/components/shadcn-ui/input";
+	import { formSchema, type FormSchema } from '../../../routes/signup/schema';
 	import {
 		type SuperValidated,
 		type Infer,
 		superForm,
 	} from "sveltekit-superforms";
 	import { zodClient } from "sveltekit-superforms/adapters";
-	import { Button } from '$lib/components/ui/button';
+	import { Button } from '$lib/components/shadcn-ui/button';
 	import { EyeClosed, EyeOpen, LinkedinLogo } from 'radix-icons-svelte';
 
 	export let data: SuperValidated<Infer<FormSchema>>;
@@ -27,6 +27,14 @@
 </script>
 
 <form method="POST" use:enhance class="flex flex-col">
+	<Form.Field {form} name="fullName">
+		<Form.Control let:attrs>
+			<Form.Label>Повне ім'я*</Form.Label>
+			<Input placeholder="Повне ім'я" {...attrs} bind:value={$formData.fullName} />
+			<Form.FieldErrors class="font-normal"/>
+		</Form.Control>
+	</Form.Field>
+
 	<Form.Field {form} name="email">
 		<Form.Control let:attrs>
 			<Form.Label>Email*</Form.Label>
@@ -54,7 +62,7 @@
 		<Form.FieldErrors class="font-normal"/>
 	</Form.Field>
 
-	<Form.Button class="mt-1 flex-grow">Увійти</Form.Button>
+	<Form.Button class="mt-1 flex-grow">Зареєструватися</Form.Button>
 </form>
 
 <div class="relative">

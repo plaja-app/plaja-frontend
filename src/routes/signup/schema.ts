@@ -1,5 +1,3 @@
-import SignUpForm from '$lib/components/SignUpForm.svelte';
-
 import { z } from "zod";
 
 export const formSchema = z.object({

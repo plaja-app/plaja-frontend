@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
+	import { Button } from '$lib/components/shadcn-ui/button';
+	import { Separator } from '$lib/components/shadcn-ui/separator';
 </script>
 
 <div class="border-t border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 ">

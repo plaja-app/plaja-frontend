@@ -1,10 +1,8 @@
 <script lang="ts">
-	import CourseCard from '$lib/components/CourseCard.svelte';
 	import type { PageData } from './$types';
-	import { Button } from '$lib/components/ui/button';
 	import CourseCardExpanded from '$lib/components/CourseCardExpanded.svelte';
-	import { Separator } from '$lib/components/ui/separator';
 	import InstructorAvatar from '$lib/components/InstructorAvatar.svelte';
+
 	export let data: PageData
 
 	$: course = data.course[0] as Course;

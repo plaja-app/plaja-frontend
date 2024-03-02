@@ -3,16 +3,15 @@ import { superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { formSchema } from "./schema";
 import { fail, redirect } from '@sveltejs/kit';
-import { toast } from 'svelte-sonner';
 import { BackendURL } from '$lib';
 
-export const load: PageServerLoad = async ({locals}) => {
-	if (typeof locals.session !== 'undefined') {
-		throw redirect(303, "/")
-	}
+export const load: PageServerLoad = async () => {
+	const response = await fetch(`${BackendURL}/api/v1/course-categories?id=all&sort=title`);
+	const courseCategories: CourseCategory[] = await response.json();
 
 	return {
 		form: await superValidate(zod(formSchema)),
+		categories: courseCategories,
 	};
 };
 
@@ -25,21 +24,17 @@ export const actions: Actions = {
 			});
 		}
 
-		const response = await fetch(`${BackendURL}/api/v1/users/signup`,
-			{method: "POST",
-				headers: {
-				"Content-Type": "application/json",
-				},
-				body: JSON.stringify(form.data)
-			});
+		console.log(form.data)
 
-		if (response.ok) {
-			toast.success("Account created!")
-			redirect(303, '/login')
-		}
+		// const response = await fetch(`${BackendURL}/api/v1/users/login`,
+		// 	{method: "POST",
+		// 		headers: {
+		// 			"Content-Type": "application/json",
+		// 		},
+		// 		body: JSON.stringify(form.data)
+		// 	})
+		//
 
-		return {
-			form,
-		};
+		//throw redirect(303, '/')
 	},
 };

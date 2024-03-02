@@ -17,15 +17,22 @@ export const handle: Handle = async ({ event, resolve }) => {
 			}
 		});
 
+		let user: User
+
 		if (response.ok) {
 			const fullUser = await response.json();
 
-			event.locals.user = {
+			if (!event.locals.session) {
+				event.locals.session = { User: {} as User };
+			}
+
+			event.locals.session.User = {
 				ID: fullUser.ID,
 				FirstName: fullUser.FirstName,
 				LastName: fullUser.LastName,
+				UserName: fullUser.UserName,
 				Email: fullUser.Email,
-				UserName: fullUser.UserName
+				UserType: fullUser.UserType,
 			};
 
 		} else {

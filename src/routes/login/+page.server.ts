@@ -7,7 +7,11 @@ import { toast } from 'svelte-sonner';
 import { BackendURL } from '$lib';
 import { parseCookies } from '$lib/utils';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ locals }) => {
+	if (typeof locals.session !== 'undefined') {
+		throw redirect(303, "/")
+	}
+
 	return {
 		form: await superValidate(zod(formSchema)),
 	};

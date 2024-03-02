@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
+	import * as Card from '$lib/components/shadcn-ui/card';
+	import { Button } from '$lib/components/shadcn-ui/button';
 	import { EnvelopeClosed, Heart } from 'radix-icons-svelte';
 	import { HeartFilled } from 'radix-icons-svelte';
 	import { toast } from "svelte-sonner";

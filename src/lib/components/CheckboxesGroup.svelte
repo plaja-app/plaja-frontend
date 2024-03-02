@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Checkbox } from "$lib/components/ui/checkbox";
+	import { Checkbox } from "$lib/components/shadcn-ui/checkbox";
 
 	export let label: string;
 

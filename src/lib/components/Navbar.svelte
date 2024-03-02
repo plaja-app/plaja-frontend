@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
+	import { Button } from "$lib/components/shadcn-ui/button";
 	import Logo from '$lib/components/Logo.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import UserNavbar from '$lib/components/UserNavbar.svelte';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index';
+	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu/index';
 	import { HamburgerMenu } from 'radix-icons-svelte';
 
 	export let categories: CourseCategory[] = []
-	export let user: User | undefined
+	export let session: Session | undefined
 </script>
 
 <nav class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md
@@ -57,9 +57,9 @@
 
 			<Button variant="link" class="p-1" href="/teaching/apply">Викладати на Plaja</Button>
 
-			{#if user !== undefined}
+			{#if session !== undefined}
 				<div class="relative flex items-center mr-2">
-						<UserNavbar user={user}/>
+						<UserNavbar session={session}/>
 				</div>
 			{:else}
 					<Button variant="outline" class="!visible" href="/login">Увійти</Button>

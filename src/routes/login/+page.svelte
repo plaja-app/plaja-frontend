@@ -1,8 +1,6 @@
 <script lang="ts">
-	import UserAuthForm from '$lib/components/LogInForm.svelte';
-	import SignUpForm from '$lib/components/SignUpForm.svelte';
 	import type { PageData } from "./$types";
-	import LogInForm from '$lib/components/LogInForm.svelte';
+	import LogInForm from '$lib/components/forms/LogInForm.svelte';
 	export let data: PageData;
 </script>
 

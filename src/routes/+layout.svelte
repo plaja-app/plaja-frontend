@@ -3,7 +3,7 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import type { LayoutData } from './$types';
-	import { Toaster } from '$lib/components/ui/sonner';
+	import { Toaster } from '$lib/components/shadcn-ui/sonner';
 	import { ModeWatcher } from 'mode-watcher';
 
 	export let data: LayoutData
@@ -11,7 +11,7 @@
 	$: categories = data.categories as CourseCategory[];
 </script>
 
-<Navbar categories={categories} user={data.locals.user}/>
+<Navbar categories={categories} session={data.locals.session}/>
 
 <Toaster />
 <ModeWatcher />

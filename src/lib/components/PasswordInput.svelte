@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { EyeClosed, EyeOpen } from 'radix-icons-svelte';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/shadcn-ui/button';
+	import { Input } from '$lib/components/shadcn-ui/input';
 
 	export let id: string;
 	export let disabled: boolean = false;

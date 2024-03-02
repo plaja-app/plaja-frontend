@@ -1,14 +1,14 @@
 <script lang="ts">
-	import * as Card from '$lib/components/ui/card';
-	import { Button } from '$lib/components/ui/button';
-	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
-	import { Person } from 'radix-icons-svelte';
+	import * as Card from '$lib/components/shadcn-ui/card';
+	import { Button } from '$lib/components/shadcn-ui/button';
+	import { IconClock } from '@tabler/icons-svelte';
+	import { IconUsers } from '@tabler/icons-svelte';
 	import { Clock } from 'radix-icons-svelte';
-	import { IdCard } from 'radix-icons-svelte';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Star } from 'radix-icons-svelte';
-	import { StarFilled } from 'radix-icons-svelte';
-	import { Crosshair2 } from 'radix-icons-svelte';
+	import { IconCertificate } from '@tabler/icons-svelte';
+	import { Badge } from '$lib/components/shadcn-ui/badge';
+	import { IconStar } from '@tabler/icons-svelte';
+	import { IconStarFilled } from '@tabler/icons-svelte';
+	import { IconTargetArrow } from '@tabler/icons-svelte';
 
 	export let course: Course;
 
@@ -62,11 +62,11 @@
 					<Badge variant="outline">
 						<div class="p-1 flex gap-1.5">
 							<div class="flex gap-0.5">
-								<StarFilled class="h-4 w-4 text-muted-foreground" />
-								<StarFilled class="h-4 w-4 text-muted-foreground" />
-								<StarFilled class="h-4 w-4 text-muted-foreground" />
-								<StarFilled class="h-4 w-4 text-muted-foreground" />
-								<Star class="h-4 w-4 text-muted-foreground" />
+								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
+								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
+								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
+								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
+								<IconStar stroke={1.5} class="h-4 w-4 text-muted-foreground" />
 							</div>
 							<p class="font-normal text-muted-foreground">3.8 (25 тис.)</p>
 						</div>
@@ -74,7 +74,7 @@
 
 					<Badge variant="outline">
 						<div class="p-1 flex gap-1">
-							<Person class="h-4 w-4 text-muted-foreground" />
+							<IconUsers stroke={1.5} class="h-4 w-4 text-muted-foreground" />
 							<p class="font-normal text-muted-foreground">27 тис.</p>
 						</div>
 					</Badge>
@@ -82,14 +82,14 @@
 
 					<Badge variant="outline">
 						<div class="p-1 flex gap-1">
-							<Clock class="h-4 w-4 text-muted-foreground" />
+							<IconClock stroke={1.5} class="h-4 w-4 text-muted-foreground" />
 							<p class="font-normal text-muted-foreground">35 год.</p>
 						</div>
 					</Badge>
 
 					<Badge variant="outline">
 						<div class="p-1 flex gap-1">
-							<Crosshair2 class="h-4 w-4 text-muted-foreground" />
+							<IconTargetArrow stroke={1.5} class="h-4 w-4 text-muted-foreground" />
 							<p class="font-normal text-muted-foreground">{course.Level.Title}</p>
 						</div>
 					</Badge>
@@ -97,7 +97,7 @@
 					{#if course.HasCertificate}
 						<Badge variant="outline">
 							<div class="p-1 flex gap-1">
-								<IdCard class="h-4 w-4 text-muted-foreground" />
+								<IconCertificate stroke={1.5} class="h-4 w-4 text-muted-foreground" />
 								<p class="font-normal text-muted-foreground">Сертифікат</p>
 							</div>
 						</Badge>

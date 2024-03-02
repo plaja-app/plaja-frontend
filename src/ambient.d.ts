@@ -1,4 +1,8 @@
-type CourseCategory = {
+type Session = {
+	User: User,
+}
+
+type UserType = {
 	ID: number,
 	Title: string,
 }
@@ -7,8 +11,15 @@ type User = {
 	ID: number,
 	FirstName: string,
 	LastName: string,
-	Email: string,
 	UserName: string,
+	Email: string,
+	UserType: UserType,
+	CreatedAt: string,
+}
+
+type CourseCategory = {
+	ID: number,
+	Title: string,
 }
 
 type CourseLevel = {

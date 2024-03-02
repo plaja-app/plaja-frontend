@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Avatar from '$lib/components/ui/avatar';
+	import * as Avatar from '$lib/components/shadcn-ui/avatar';
 </script>
 
 <div class="flex items-center gap-2">
