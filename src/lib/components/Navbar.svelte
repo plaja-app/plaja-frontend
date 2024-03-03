@@ -55,7 +55,7 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 
-			<Button variant="link" class="p-1" href="/teaching/apply">Викладати на Plaja</Button>
+			<Button variant="link" class="p-1" href="/teaching/apply">Викладання</Button>
 
 			{#if session !== undefined}
 				<div class="relative flex items-center mr-2">

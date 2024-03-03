@@ -1,71 +1,67 @@
 <script lang="ts">
-	import * as Form from "$lib/components/shadcn-ui/form";
-	import { Input } from "$lib/components/shadcn-ui/input";
-	import { formSchema, type FormSchema } from '../../../routes/teaching/courses/create/schema';
-	import SuperDebug, {
-		type SuperValidated,
-		type Infer,
-		superForm,
-	} from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
-	import * as Select from '$lib/components/shadcn-ui/select';
-	import { browser } from "$app/environment";
+	import { writable } from 'svelte/store';
+	import { Input } from '$lib/components/shadcn-ui/input';
+	import TagSelector from '$lib/components/TagSelector.svelte';
+	import { Button } from '$lib/components/shadcn-ui/button';
+	import { browser } from '$app/environment';
 
-	export let data: SuperValidated<Infer<FormSchema>>;
 	export let categories: CourseCategory[] = [];
 
-	const form = superForm(data, {
-		validators: zodClient(formSchema),
-	});
+	let title = '';
+	let selector;
+	let selectedCategories: CourseCategory[] = [];
+	let validationMessage = writable('');
 
-	const { form: formData, enhance } = form;
+	function onTagSelectionUpdate(event: CustomEvent<number[]>) {
+		selectedCategories = event.detail.map(selectedId => {
+			const category = categories.find(category => category.ID === selectedId);
+			return { id: category.ID, title: category.Title };
+		});
+	}
 
-	$: selectedCategory = $formData.categoryID
-		? {
-			label: categories.find(c => c.ID === $formData.categoryID)?.Title,
-			value: $formData.categoryID,
+	function handleSubmit() {
+		validationMessage.set('');
+
+		if (title.trim().length === 0) {
+			validationMessage.set('Введіть назву.');
+			return;
 		}
-		: undefined;
+
+		if (selectedCategories.length === 0) {
+			validationMessage.set('Оберіть принаймні одну категорію.');
+			return;
+		}
+
+		const formData = {
+			title,
+			categories: selectedCategories,
+		};
+
+		console.log(formData);
+
+		title = '';
+	}
 </script>
 
-<form method="POST" use:enhance class="flex flex-col">
-	<Form.Field {form} name="title">
-		<Form.Control let:attrs>
-			<Form.Label class="text-base">Назва</Form.Label>
-			<Input placeholder="Пр. Створення веб-застосунків" {...attrs} bind:value={$formData.title} />
-			<Form.Description>
-				Назву можна буде змінити пізніше.
-			</Form.Description>
-		</Form.Control>
-		<Form.FieldErrors class="font-normal" />
-	</Form.Field>
-
-	<Form.Field {form} name="categoryID">
-		<Form.Control let:attrs>
-			<Form.Label class="text-base">Категорія</Form.Label>
-			<Select.Root
-				selected={selectedCategory}
-				onSelectedChange={(v) => {
-          v && ($formData.categoryID = v.value);
-        }}>
-				<Select.Trigger>
-					<Select.Value placeholder="Категорія" />
-				</Select.Trigger>
-				<Select.Content>
-					{#each categories as { Title, ID }}
-						<Select.Item value={ID}>{Title}</Select.Item>
-					{/each}
-				</Select.Content>
-			</Select.Root>
-			<input hidden bind:value={$formData.categoryID} name={attrs.name} />
-		</Form.Control>
-	</Form.Field>
-
-	<Form.Button class="mt-1 flex-grow">Перейти до наповнення</Form.Button>
-
-	<div class="mt-10">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
+<form on:submit|preventDefault={handleSubmit} class="flex flex-col">
+	<div class="form-field mb-5">
+		<label for="title" class="text-base">Назва</label>
+		<Input id="title" placeholder="Пр. Створення веб-застосунків" bind:value={title} />
+		<p class="text-sm text-gray-500 mt-1">
+			Назву можна буде змінити пізніше.
+		</p>
 	</div>
+
+	<div class="form-field mb-1">
+		<label for="categories" class="text-base">Категорії</label>
+		<TagSelector
+			description="Оберіть категорії, які стосуються вашого курсу."
+			categories={categories}
+			maxTags={3}
+			on:update={onTagSelectionUpdate} />
+	</div>
+
+	<p class="text-red-500 class mb-1">{$validationMessage}</p>
+
+	<Button type="submit" class="mt-1 flex-grow">Створити</Button>
 </form>

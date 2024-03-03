@@ -1,14 +1,11 @@
 <script lang="ts">
-	import { Separator } from '$lib/components/shadcn-ui/separator';
 	import type { PageData } from "./$types";
 	import CreateCourseForm from '$lib/components/forms/CreateCourseForm.svelte';
-	import SignUpForm from '$lib/components/forms/SignUpForm.svelte';
-	import { onMount } from 'svelte';
 
 	export let data: PageData;
 </script>
 
-<div class="container relative hidden h-[580px] flex-col items-center justify-center center md:grid lg:max-w-none lg:px-0">
+<div class="container relative hidden h-[680px] flex-col items-center justify-center center md:grid lg:max-w-none lg:px-0">
 	<div class="lg:p-8">
 		<div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[580px]">
 			<div class="flex flex-col space-y-2 text-center place-items-center">
@@ -18,7 +15,7 @@
 				</div>
 
 			</div>
-			<CreateCourseForm data={data.form} categories={data.categories} />
+			<CreateCourseForm data={data.form} categories={data.initialCategories} />
 		</div>
 	</div>
 </div>
