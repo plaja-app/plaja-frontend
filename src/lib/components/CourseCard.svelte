@@ -23,7 +23,7 @@
 
 	<div class="columns-2 flex">
 		<div class="p-4">
-			<div class="w-[240px] h-[150px] bg-indigo-200 rounded-md overflow-hidden">
+			<div class="w-[240px] h-[150px] bg-neutral-400 rounded-md overflow-hidden">
 				<img
 					src={course.Thumbnail}
 					alt={course.Title}
@@ -47,7 +47,7 @@
 				</div>
 
 				<Card.Description class="place-self-start">
-					<Button variant="link" class="p-0 h-1 font-normal text-muted-foreground" href="/user/{course.Instructor.ID}">
+					<Button variant="link" class="p-0 h-1 font-normal text-muted-foreground" href="/users/{course.Instructor.ID}">
 						{course.Instructor.FirstName + " "  + course.Instructor.LastName }
 					</Button>
 				</Card.Description>
@@ -59,25 +59,25 @@
 
 			<Card.Footer class="justify-between">
 				<div class="flex gap-2">
-					<Badge variant="outline">
-						<div class="p-1 flex gap-1.5">
-							<div class="flex gap-0.5">
-								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-								<IconStar stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-							</div>
-							<p class="font-normal text-muted-foreground">3.8 (25 тис.)</p>
-						</div>
-					</Badge>
+<!--					<Badge variant="outline">-->
+<!--						<div class="p-1 flex gap-1.5">-->
+<!--							<div class="flex gap-0.5">-->
+<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--								<IconStar stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--							</div>-->
+<!--							<p class="font-normal text-muted-foreground">3.8 (25 тис.)</p>-->
+<!--						</div>-->
+<!--					</Badge>-->
 
-					<Badge variant="outline">
-						<div class="p-1 flex gap-1">
-							<IconUsers stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-							<p class="font-normal text-muted-foreground">27 тис.</p>
-						</div>
-					</Badge>
+<!--					<Badge variant="outline">-->
+<!--						<div class="p-1 flex gap-1">-->
+<!--							<IconUsers stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
+<!--							<p class="font-normal text-muted-foreground">27 тис.</p>-->
+<!--						</div>-->
+<!--					</Badge>-->
 
 
 					<Badge variant="outline">

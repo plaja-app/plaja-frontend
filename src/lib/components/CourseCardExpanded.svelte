@@ -18,7 +18,7 @@
 <div class="w-1/3 text-center ">
 	<Card.Root class="border-b border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
 		<Card.Header class="grid gap-5">
-				<div class="w-[325px] h-[200px] bg-indigo-200 rounded-md overflow-hidden">
+				<div class="w-[325px] h-[200px] bg-neutral-400 rounded-md overflow-hidden">
 					<img
 						src={course.Thumbnail}
 						alt={course.Title}

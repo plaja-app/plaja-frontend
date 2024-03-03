@@ -49,8 +49,8 @@
 
 					<DropdownMenu.Separator />
 
-					{#each categories as category (category.ID)}
-						<DropdownMenu.Item href="?q={category.Title}">{category.Title}</DropdownMenu.Item>
+					{#each categories as {ID, Title}}
+						<DropdownMenu.Item href="?q={ID}">{Title}</DropdownMenu.Item>
 					{/each}
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>

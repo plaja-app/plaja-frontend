@@ -8,7 +8,6 @@ import { __await } from 'tslib';
 
 
  export const load: PageServerLoad = async ({ fetch, cookies }) => {
-
  		throw redirect(303, '/');
  }
 

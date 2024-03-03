@@ -11,9 +11,9 @@ type User = {
 	ID: number,
 	FirstName: string,
 	LastName: string,
-	UserName: string,
+	UserName?: string,
 	Email: string,
-	UserType: UserType,
+	UserType?: UserType,
 	CreatedAt: string,
 }
 

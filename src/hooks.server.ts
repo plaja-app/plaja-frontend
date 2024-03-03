@@ -17,22 +17,24 @@ export const handle: Handle = async ({ event, resolve }) => {
 			}
 		});
 
-		let user: User
-
 		if (response.ok) {
-			const fullUser = await response.json();
+			const responseUser: User = await response.json();
 
 			if (!event.locals.session) {
 				event.locals.session = { User: {} as User };
 			}
 
 			event.locals.session.User = {
-				ID: fullUser.ID,
-				FirstName: fullUser.FirstName,
-				LastName: fullUser.LastName,
-				UserName: fullUser.UserName,
-				Email: fullUser.Email,
-				UserType: fullUser.UserType,
+				ID: responseUser.ID,
+				FirstName: responseUser.FirstName,
+				LastName: responseUser.LastName,
+				UserName: responseUser.UserName,
+				Email: responseUser.Email,
+				// UserType: {
+				// 	ID: responseUser.user_type.id,
+				// 	Title: responseUser.user_type.title,
+				// },
+				CreatedAt: responseUser.CreatedAt,
 			};
 
 		} else {

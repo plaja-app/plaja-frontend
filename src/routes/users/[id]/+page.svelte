@@ -8,6 +8,7 @@
 
 	export let session: Session | undefined
 	export let data: PageData
+
 	$: user = data.user[0] as User;
 </script>
 
@@ -21,39 +22,40 @@
 				</Avatar.Root>
 			</div>
 
-			<div class="mb-3">
+			<div>
 				<p class="text-2xl w-72 font-medium">{user.FirstName} {user.LastName}</p>
 				<p class="w-32 font-normal text-muted-foreground">
-					{#if user.UserType.Title === "Learner"}
+					{#if user.UserType?.Title === "Learner"}
 						Студент
-					{:else if user.UserType.Title === "Educator"}
+					{:else if user.UserType?.Title === "Educator"}
 						Викладач
-					{:else if user.UserType.Title === "Admin"}
+					{:else if user.UserType?.Title === "Admin"}
 						Команда Plaja
 					{/if}
 				</p>
 			</div>
 
-			<div>
-
-				<div class="flex gap-1.5 pb-1">
-					<IconBooks stroke={1.5} class="h-5 w-5" />
-					<p>10 курсів створено</p>
-				</div>
+			<div class="mt-4">
+				{#if user.UserType?.Title !== "Learner"}
+					<div class="flex gap-1.5 pb-1">
+						<IconBooks stroke={1.5} class="h-5 w-5" />
+						<p>X курсів створено</p>
+					</div>
+				{/if}
 
 				<div class="flex gap-1.5 pb-1">
 					<IconSchool stroke={1.5} class="h-5 w-5" />
-					<p>N курсів пройдено</p>
+					<p>X курсів пройдено</p>
 				</div>
 
 				<div class="flex gap-1.5 pb-1">
 					<IconCertificate stroke={1.5} class="h-5 w-5" />
-					<p>N сертифікатів</p>
+					<p>X сертифікатів</p>
 				</div>
 			</div>
 
-			<Separator class="w-3/4 mb-2 mt-8" />
-			<div class="pt-1 flex gap-1.5">
+			<Separator class="w-3/4 mb-2 my-4" />
+			<div class="flex gap-1.5">
 				<IconFlame stroke={1.5} class="h-5 w-5 text-muted-foreground" />
 				<p class="text-muted-foreground">На Plaja з {formatDate(user.CreatedAt)}</p>
 			</div>
