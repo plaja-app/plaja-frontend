@@ -13,7 +13,7 @@ type User = {
 	LastName: string,
 	UserName?: string,
 	Email: string,
-	UserType?: UserType,
+	UserType: UserType,
 	CreatedAt: string,
 }
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import CourseCardExpanded from '$lib/components/CourseCardExpanded.svelte';
-	import InstructorAvatar from '$lib/components/InstructorAvatar.svelte';
+	import UserCard from '$lib/components/UserCard.svelte';
 
 	export let data: PageData
 
@@ -14,7 +14,7 @@
 		<div class="grid place-items-start gap-3.5">
 			<p class="text-3xl font-medium">{course.Title}</p>
 			<div class="pb-2">
-				<InstructorAvatar/>
+				<UserCard user={course.Instructor} tag="Інструктор" />
 			</div>
 			<div class="w-1">
 				<p class="font-medium">Опис</p>

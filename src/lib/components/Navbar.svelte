@@ -10,7 +10,7 @@
 	export let session: Session | undefined
 </script>
 
-<nav class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md
+<nav class="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md
 						supports-[backdrop-filter]:bg-background/60 flex-no-wrap flex items-center justify-between bg-white
 						py-4 lg:flex-wrap lg:justify-start lg:py-4">
 
@@ -55,9 +55,11 @@
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 
-			<Button variant="link" class="p-1" href="/teaching/apply">Викладання</Button>
+			{#if session?.User?.UserType?.Title === "Learner" || !session}
+				<Button variant="link" class="p-1" href="/teaching/apply">Викладати на Plaja</Button>
+			{/if}
 
-			{#if session !== undefined}
+			{#if session}
 				<div class="relative flex items-center mr-2">
 						<UserNavbar session={session}/>
 				</div>

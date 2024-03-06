@@ -3,8 +3,12 @@ import SignUpForm from '$lib/components/forms/SignUpForm.svelte';
 import { z } from "zod";
 
 export const formSchema = z.object({
-	email: z.string().email().max(50),
-	password: z.string().min(8),
+	Email: z.string()
+		.email({
+			message: "Некоректна адреса."
+		}),
+
+	Password: z.string(),
 });
 
 export type FormSchema = typeof formSchema;

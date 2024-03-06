@@ -30,10 +30,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 				LastName: responseUser.LastName,
 				UserName: responseUser.UserName,
 				Email: responseUser.Email,
-				// UserType: {
-				// 	ID: responseUser.user_type.id,
-				// 	Title: responseUser.user_type.title,
-				// },
+				UserType: {
+					ID: responseUser.UserType?.ID,
+					Title: responseUser.UserType?.Title,
+				},
 				CreatedAt: responseUser.CreatedAt,
 			};
 

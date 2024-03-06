@@ -16,7 +16,7 @@
 <Toaster />
 <ModeWatcher />
 
-<main>
+<main class="my-20">
 	<slot></slot>
 </main>
 

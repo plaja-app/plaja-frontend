@@ -27,28 +27,28 @@
 </script>
 
 <form method="POST" use:enhance class="flex flex-col">
-	<Form.Field {form} name="fullName">
+	<Form.Field {form} name="FullName">
 		<Form.Control let:attrs>
 			<Form.Label>Повне ім'я*</Form.Label>
-			<Input placeholder="Повне ім'я" {...attrs} bind:value={$formData.fullName} />
+			<Input placeholder="Повне ім'я" {...attrs} bind:value={$formData.FullName} />
 			<Form.FieldErrors class="font-normal"/>
 		</Form.Control>
 	</Form.Field>
 
-	<Form.Field {form} name="email">
+	<Form.Field {form} name="Email">
 		<Form.Control let:attrs>
 			<Form.Label>Email*</Form.Label>
-			<Input placeholder="Email" {...attrs} bind:value={$formData.email} />
+			<Input placeholder="Email" {...attrs} bind:value={$formData.Email} />
 		</Form.Control>
 		<Form.FieldErrors class="font-normal"/>
 	</Form.Field>
 
-	<Form.Field {form} name="password">
+	<Form.Field {form} name="Password">
 		<Form.Control let:attrs>
 			<Form.Label>Пароль*</Form.Label>
 
 			<div class="flex gap-1 items-center">
-				<Input type={isPasswordVisible ? 'text' : 'password'} placeholder="Пароль" {...attrs} bind:value={$formData.password} />
+				<Input type={isPasswordVisible ? 'text' : 'password'} placeholder="Пароль" {...attrs} bind:value={$formData.Password} />
 				<Button variant="outline" on:click={togglePasswordVisibility} class="shrink-0">
 					{#if isPasswordVisible}
 						<EyeOpen />

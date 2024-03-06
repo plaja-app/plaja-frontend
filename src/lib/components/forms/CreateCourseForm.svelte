@@ -19,9 +19,7 @@
 	export let session: Session | undefined;
 	export let data: SuperValidated<Infer<FormSchema>>;
 
-	console.log(session)
 	let instructorID: number = session?.User?.ID
-	console.log("Instructor", instructorID)
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
@@ -70,11 +68,13 @@
 	<Form.Field {form} name="Categories">
 		<Form.Control let:attrs>
 			<Form.Label>Категорії</Form.Label>
+<!--			TODO: Change to Combobox-->
 			<TagSelector
 				description="Оберіть категорії, які стосуються вашого курсу."
 				categories={categories}
 				maxTags={3}
 				on:update={onTagSelectionUpdate} />
+
 			<input hidden {...attrs} bind:value={$formData.Categories} />
 		</Form.Control>
 		<Form.FieldErrors class="font-normal"/>

@@ -4,14 +4,13 @@
 	export let label: string;
 
 	const items = [
-		{ id: "item1", label: "Item 1", checked: false },
-		{ id: "item2", label: "Item 2", checked: false },
-		{ id: "item3", label: "Item 3", checked: false },
+		{ id: "item1", label: "Варіант 1", checked: false },
+		{ id: "item2", label: "Варіант 2", checked: false },
+		{ id: "item3", label: "Варіант 3", checked: false },
 	];
 
 	function handleCheckedChange(id: string, checked: boolean) {
 		items.find((item) => item.id === id)!.checked = checked;
-		console.log('Checked Items:', items.filter((item) => item.checked));
 		const divElement = document.getElementById("courses-table");
 
 		if (divElement) {

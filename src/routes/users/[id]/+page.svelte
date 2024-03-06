@@ -5,14 +5,12 @@
 	import { IconBooks, IconCertificate, IconFlame, IconSchool } from '@tabler/icons-svelte';
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils';
-
-	export let session: Session | undefined
 	export let data: PageData
 
 	$: user = data.user[0] as User;
 </script>
 
-<div class="mx-72 my-16">
+<div class="mx-72 my-24 pt-12">
 	<div class="grid gap-24 grid-cols-[min-content_1fr]">
 		<div>
 			<div class="mb-5">
@@ -62,8 +60,27 @@
 		</div>
 
 		<div>
-			<p class="text-xl font-medium">Курси</p>
-			<p class="text-xl font-medium">Сертифікати</p>
+			<div class="mb-4">
+				<p class="text-xl font-medium">Курси</p>
+				<p class="text-muted-foreground">
+					{#if data.session?.User?.ID === user.ID}
+						Ви ще не берете участь у жодному курсі.
+					{:else}
+						Користувач не бере участь у жодному курсі.
+					{/if}
+				</p>
+			</div>
+
+			<div>
+				<p class="text-xl font-medium">Сертифікати</p>
+				<p class="text-muted-foreground">
+					{#if data.session?.User?.ID === user.ID}
+						Ви ще не отримали жодного сертифікату.
+					{:else}
+						Користувач ще не отримав жодного сертифікату.
+					{/if}
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
