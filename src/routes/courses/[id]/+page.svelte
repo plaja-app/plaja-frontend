@@ -3,13 +3,12 @@
 	import CourseCardExpanded from '$lib/components/CourseCardExpanded.svelte';
 	import UserCard from '$lib/components/UserCard.svelte';
 
-	export let data: PageData
+	export let data: PageData;
 
 	$: course = data.course[0] as Course;
 </script>
 
-
-<div class="columns-2 py-20 px-40 justify-between flex">
+<div class="flex columns-2 justify-between px-40 py-20">
 	<div>
 		<div class="grid place-items-start gap-3.5">
 			<p class="text-3xl font-medium">{course.Title}</p>
@@ -22,5 +21,5 @@
 		</div>
 	</div>
 
-	<CourseCardExpanded course={course} />
+	<CourseCardExpanded {course} />
 </div>

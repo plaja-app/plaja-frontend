@@ -4,25 +4,24 @@ import { parseCookies } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ fetch, cookies }) => {
-	const response = await fetch(`${BackendURL}/api/v1/users/logout`,
-		{
-			method: "POST",
-			credentials: 'include',
-		})
+	const response = await fetch(`${BackendURL}/api/v1/users/logout`, {
+		method: 'POST',
+		credentials: 'include'
+	});
 
-	const parsedCookies = parseCookies(response.headers.getSetCookie())
+	const parsedCookies = parseCookies(response.headers.getSetCookie());
 
-	parsedCookies.forEach(cookie => {
+	parsedCookies.forEach((cookie) => {
 		cookies.set(cookie.name, cookie.attributes.value, {
 			maxAge: cookie.attributes.maxAge,
 			httpOnly: cookie.attributes.httpOnly,
 			secure: false,
-			path: '/',
+			path: '/'
 		});
 	});
 
 	throw redirect(303, '/');
-}
+};
 
 import { json } from '@sveltejs/kit';
 

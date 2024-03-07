@@ -1,25 +1,64 @@
+<!--<script lang="ts">-->
+<!--	import { cn } from '$lib/utils';-->
+<!--	import { Button } from '$lib/components/shadcn-ui/button';-->
+<!--	import { Separator } from '$lib/components/shadcn-ui/separator';-->
+<!--	import { IconChartCandle as Stats } from '@tabler/icons-svelte';-->
+<!--	import { IconBooks as Courses } from '@tabler/icons-svelte';-->
+<!--</script>-->
+
+<!--<div class="ml-4">-->
+<!--	<div class="z-50 mx-2 my-4">-->
+<!--		<p class="mb-3 ml-4 text-xl font-medium">Викладання</p>-->
+
+<!--		<div class="grid gap-1">-->
+<!--			<Button variant="ghost" class="w-full justify-start">-->
+<!--				<Courses stroke={1.5} class="mr-2 size-5" />-->
+<!--				Мої курси-->
+<!--			</Button>-->
+
+<!--			<Button variant="ghost" class="w-full justify-start">-->
+<!--				<Stats stroke={1.5} class="mr-2 size-5" />-->
+<!--				Статистика-->
+<!--			</Button>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
+
 <script lang="ts">
-	import { cn } from "$lib/utils";
+	import { cn } from '$lib/utils';
 	import { Button } from '$lib/components/shadcn-ui/button';
-	import { Separator } from '$lib/components/shadcn-ui/separator';
-	import { IconChartCandle as Stats } from '@tabler/icons-svelte';
-	import { IconBooks as Courses } from '@tabler/icons-svelte';
+	import { page } from '$app/stores';
+	import { cubicInOut } from 'svelte/easing';
+	import { crossfade } from 'svelte/transition';
+
+	export let items: { icon: any; href: string; title: string }[];
+
+	const [send, receive] = crossfade({
+		duration: 250,
+		easing: cubicInOut
+	});
 </script>
 
-<div class="ml-4">
-	<div class="mx-2 z-50 my-4">
-		<p class="ml-4 mb-3 text-xl font-medium">Викладання</p>
+<nav class={cn('z-50 mx-2 my-4 ml-8 flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1')}>
+	{#each items as item}
+		{@const isActive = $page.url.pathname === item.href}
+		<Button
+			href={item.href}
+			variant="ghost"
+			class={cn(!isActive && 'hover:underline', 'relative justify-start hover:bg-transparent')}
+		>
+			<svelte:component this={item.icon} stroke={1.75} class="z-50 mr-2 size-5" />
 
-		<div class="grid gap-1">
-			<Button variant="ghost" class="w-full justify-start">
-				<Courses stroke={1.5} class="size-5 mr-2" />
-				Мої курси
-			</Button>
-
-			<Button variant="ghost" class="w-full justify-start">
-				<Stats stroke={1.5} class="size-5 mr-2" />
-				Статистика
-			</Button>
-		</div>
-	</div>
-</div>
+			{#if isActive}
+				<div
+					class="absolute inset-0 rounded-md bg-muted"
+					in:send={{ key: 'active-sidebar-tab' }}
+					out:receive={{ key: 'active-sidebar-tab' }}
+				/>
+			{/if}
+			<div class="relative">
+				{item.title}
+			</div>
+		</Button>
+	{/each}
+</nav>

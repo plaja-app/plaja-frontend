@@ -1,20 +1,16 @@
 <script lang="ts">
-	import * as Form from "$lib/components/shadcn-ui/form";
-	import { Input } from "$lib/components/shadcn-ui/input";
+	import * as Form from '$lib/components/shadcn-ui/form';
+	import { Input } from '$lib/components/shadcn-ui/input';
 	import { formSchema, type FormSchema } from '../../../routes/signup/schema';
-	import {
-		type SuperValidated,
-		type Infer,
-		superForm,
-	} from "sveltekit-superforms";
-	import { zodClient } from "sveltekit-superforms/adapters";
+	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { EyeClosed, EyeOpen, LinkedinLogo } from 'radix-icons-svelte';
 
 	export let data: SuperValidated<Infer<FormSchema>>;
 
 	const form = superForm(data, {
-		validators: zodClient(formSchema),
+		validators: zodClient(formSchema)
 	});
 
 	const { form: formData, enhance } = form;
@@ -29,26 +25,31 @@
 <form method="POST" use:enhance class="flex flex-col">
 	<Form.Field {form} name="FullName">
 		<Form.Control let:attrs>
-			<Form.Label>Повне ім'я*</Form.Label>
+			<Form.Label>Повне ім'я</Form.Label>
 			<Input placeholder="Повне ім'я" {...attrs} bind:value={$formData.FullName} />
-			<Form.FieldErrors class="font-normal"/>
+			<Form.FieldErrors class="font-normal" />
 		</Form.Control>
 	</Form.Field>
 
 	<Form.Field {form} name="Email">
 		<Form.Control let:attrs>
-			<Form.Label>Email*</Form.Label>
+			<Form.Label>Email</Form.Label>
 			<Input placeholder="Email" {...attrs} bind:value={$formData.Email} />
 		</Form.Control>
-		<Form.FieldErrors class="font-normal"/>
+		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
 
 	<Form.Field {form} name="Password">
 		<Form.Control let:attrs>
-			<Form.Label>Пароль*</Form.Label>
+			<Form.Label>Пароль</Form.Label>
 
-			<div class="flex gap-1 items-center">
-				<Input type={isPasswordVisible ? 'text' : 'password'} placeholder="Пароль" {...attrs} bind:value={$formData.Password} />
+			<div class="flex items-center gap-1">
+				<Input
+					type={isPasswordVisible ? 'text' : 'password'}
+					placeholder="Пароль"
+					{...attrs}
+					bind:value={$formData.Password}
+				/>
 				<Button variant="outline" on:click={togglePasswordVisibility} class="shrink-0">
 					{#if isPasswordVisible}
 						<EyeOpen />
@@ -57,9 +58,8 @@
 					{/if}
 				</Button>
 			</div>
-
 		</Form.Control>
-		<Form.FieldErrors class="font-normal"/>
+		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
 
 	<Form.Button class="mt-1 flex-grow">Зареєструватися</Form.Button>

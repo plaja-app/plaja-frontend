@@ -6,10 +6,9 @@ import { json } from '@sveltejs/kit';
 import { invalidateAll } from '$app/navigation';
 import { __await } from 'tslib';
 
-
- export const load: PageServerLoad = async ({ fetch, cookies }) => {
- 		throw redirect(303, '/');
- }
+export const load: PageServerLoad = async ({ fetch, cookies }) => {
+	throw redirect(303, '/');
+};
 
 // export async function POST({ request }) {
 // 	const headers = new Headers();

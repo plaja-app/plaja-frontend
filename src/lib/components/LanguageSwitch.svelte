@@ -1,6 +1,6 @@
 <script lang="ts">
-import { IconLanguageHiragana } from '@tabler/icons-svelte';
-import { Button } from '$lib/components/shadcn-ui/button/index';
+	import { IconLanguageHiragana } from '@tabler/icons-svelte';
+	import { Button } from '$lib/components/shadcn-ui/button/index';
 </script>
 
 <div>

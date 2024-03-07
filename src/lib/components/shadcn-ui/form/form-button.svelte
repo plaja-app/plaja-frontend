@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Button from "$lib/components/shadcn-ui/button";
+	import * as Button from '$lib/components/shadcn-ui/button';
 
 	type $$Props = Button.Props;
 </script>

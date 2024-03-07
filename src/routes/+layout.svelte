@@ -6,18 +6,18 @@
 	import { Toaster } from '$lib/components/shadcn-ui/sonner';
 	import { ModeWatcher } from 'mode-watcher';
 
-	export let data: LayoutData
+	export let data: LayoutData;
 
 	$: categories = data.categories as CourseCategory[];
 </script>
 
-<Navbar categories={categories} session={data.locals.session}/>
+<Navbar {categories} session={data.locals.session} />
 
 <Toaster />
-<ModeWatcher />
+<ModeWatcher track={false} defaultMode="light" />
 
 <main class="my-20">
-	<slot></slot>
+	<slot />
 </main>
 
 <!--<div class="fixed inset-x-0 -top-60 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-60" aria-hidden="true">-->

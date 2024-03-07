@@ -2,18 +2,15 @@ import type { Handle } from '@sveltejs/kit';
 import { BackendURL } from '$lib';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const cookie_token = event.cookies.get("pja_user_jwt") as string;
+	const cookie_token = event.cookies.get('pja_user_jwt') as string;
 
-	const bearer_token = event.request.headers
-		.get("pja_user_jwt'")
-		?.split(" ")[1];
+	const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
 	const token = cookie_token ?? bearer_token;
 
-	if (token)
-	{
+	if (token) {
 		const response = await fetch(`${BackendURL}/api/v1/users/getme`, {
 			headers: {
-				'Cookie': `pja_user_jwt=${token}`,
+				Cookie: `pja_user_jwt=${token}`
 			}
 		});
 
@@ -26,21 +23,20 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 			event.locals.session.User = {
 				ID: responseUser.ID,
+				ProfilePic: responseUser.ProfilePic,
 				FirstName: responseUser.FirstName,
 				LastName: responseUser.LastName,
-				UserName: responseUser.UserName,
 				Email: responseUser.Email,
 				UserType: {
 					ID: responseUser.UserType?.ID,
-					Title: responseUser.UserType?.Title,
+					Title: responseUser.UserType?.Title
 				},
-				CreatedAt: responseUser.CreatedAt,
+				CreatedAt: responseUser.CreatedAt
 			};
-
 		} else {
-			event.cookies.delete("pja_user_jwt", {
-				path: '/',
-			})
+			event.cookies.delete('pja_user_jwt', {
+				path: '/'
+			});
 		}
 	}
 

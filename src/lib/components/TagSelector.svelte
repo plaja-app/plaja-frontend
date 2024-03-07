@@ -16,7 +16,7 @@
 	}
 
 	function handleSelectCategory(categoryId: number) {
-		selectedCategories.update(current => {
+		selectedCategories.update((current) => {
 			if (current.length < maxTags && !current.includes(categoryId)) {
 				return [...current, categoryId];
 			}
@@ -25,7 +25,7 @@
 	}
 
 	function handleRemoveCategory(categoryId: number) {
-		selectedCategories.update(current => current.filter(id => id !== categoryId));
+		selectedCategories.update((current) => current.filter((id) => id !== categoryId));
 	}
 
 	function isSelected(categoryId: number) {
@@ -37,12 +37,11 @@
 	$: canSelectMore.set($selectedCategories.length < maxTags);
 </script>
 
-
 <div>
-	<div class="flex flex-wrap gap-1 mb-1">
+	<div class="mb-1 flex flex-wrap gap-1">
 		{#each $selectedCategories as categoryId}
-			<Badge variant="secondary" class="border border-input h-8">
-				<span class="font-medium">{categories.find(c => c.ID === categoryId)?.Title}</span>
+			<Badge variant="secondary" class="h-8 border border-input">
+				<span class="font-medium">{categories.find((c) => c.ID === categoryId)?.Title}</span>
 				<button type="button" class="ml-2" on:click={() => handleRemoveCategory(categoryId)}>
 					<IconX stroke={2} class="h-3 w-3" />
 				</button>
@@ -51,7 +50,7 @@
 	</div>
 
 	<div class="relative">
-		<Select.Root disabled={!$canSelectMore} >
+		<Select.Root disabled={!$canSelectMore}>
 			<Select.Trigger>
 				<Select.Value placeholder={$canSelectMore ? 'Категорії' : 'Обрано максимум категорій'} />
 			</Select.Trigger>
@@ -59,16 +58,17 @@
 				<Select.Content>
 					{#each categories as { Title, ID }}
 						{#if !isSelected(ID)}
-							<Select.Item value={ID} on:click={() => handleSelectCategory(ID)}>{Title}</Select.Item>
+							<Select.Item value={ID} on:click={() => handleSelectCategory(ID)}>{Title}</Select.Item
+							>
 						{/if}
 					{/each}
 				</Select.Content>
 			{/if}
 		</Select.Root>
 		{#if !$canSelectMore}
-			<p class="text-sm text-gray-500 mt-1">Обрано максимум категорій.</p>
-			{:else}
-			<p class="text-sm text-gray-500 mt-1">{description}</p>
+			<p class="mt-1 text-sm text-gray-500">Обрано максимум категорій.</p>
+		{:else}
+			<p class="mt-1 text-sm text-gray-500">{description}</p>
 		{/if}
 	</div>
 </div>

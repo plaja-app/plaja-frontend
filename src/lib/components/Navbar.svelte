@@ -1,35 +1,39 @@
 <script lang="ts">
-	import { Button } from "$lib/components/shadcn-ui/button";
+	import { Button } from '$lib/components/shadcn-ui/button';
 	import Logo from '$lib/components/Logo.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import UserNavbar from '$lib/components/UserNavbar.svelte';
 	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu/index';
 	import { HamburgerMenu } from 'radix-icons-svelte';
 
-	export let categories: CourseCategory[] = []
-	export let session: Session | undefined
+	export let categories: CourseCategory[] = [];
+	export let session: Session | undefined;
 </script>
 
-<nav class="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md
-						supports-[backdrop-filter]:bg-background/60 flex-no-wrap flex items-center justify-between bg-white
-						py-4 lg:flex-wrap lg:justify-start lg:py-4">
-
+<nav
+	class="flex-no-wrap fixed top-0 z-50 flex w-full items-center justify-between
+						border-b border-border/40 bg-background/95 bg-white py-4 backdrop-blur-md
+						supports-[backdrop-filter]:bg-background/60 lg:flex-wrap lg:justify-start lg:py-4"
+>
 	<div class="flex w-full flex-wrap items-center justify-end px-6">
-<!--		<button-->
-<!--			class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none lg:hidden"-->
-<!--			type="button"-->
-<!--			data-te-collapse-init-->
-<!--			data-te-target="#navbarSupportedContent1"-->
-<!--			aria-controls="navbarSupportedContent1"-->
-<!--			aria-expanded="false"-->
-<!--			aria-label="Toggle navigation">-->
-<!--			<Button variant="outline" class="shrink-0">-->
-<!--					<HamburgerMenu />-->
-<!--			</Button>-->
-<!--		</button>-->
+		<!--		<button-->
+		<!--			class="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none lg:hidden"-->
+		<!--			type="button"-->
+		<!--			data-te-collapse-init-->
+		<!--			data-te-target="#navbarSupportedContent1"-->
+		<!--			aria-controls="navbarSupportedContent1"-->
+		<!--			aria-expanded="false"-->
+		<!--			aria-label="Toggle navigation">-->
+		<!--			<Button variant="outline" class="shrink-0">-->
+		<!--					<HamburgerMenu />-->
+		<!--			</Button>-->
+		<!--		</button>-->
 
-		<div class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto" data-te-collapse-item>
-			<a class="mb-4 ml-1 w-28 mr-5 flex items-center lg:mb-0" href="/">
+		<div
+			class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
+			data-te-collapse-item
+		>
+			<a class="mb-4 ml-1 mr-5 flex w-28 items-center lg:mb-0" href="/">
 				<Logo />
 			</a>
 
@@ -49,23 +53,25 @@
 
 					<DropdownMenu.Separator />
 
-					{#each categories as {ID, Title}}
+					{#each categories as { ID, Title }}
 						<DropdownMenu.Item href="?q={ID}">{Title}</DropdownMenu.Item>
 					{/each}
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 
-			{#if session?.User?.UserType?.Title === "Learner" || !session}
-				<Button variant="link" class="p-1" href="/teaching/apply">Викладати на Plaja</Button>
+			{#if session?.User?.UserType?.Title === 'Learner' || !session}
+				<Button variant="link" class="mr-2 p-1" href="/teaching/apply">Викладати на Plaja</Button>
+			{:else}
+				<Button variant="link" class="mr-2 p-1" href="/teaching">Викладання</Button>
 			{/if}
 
 			{#if session}
-				<div class="relative flex items-center mr-2">
-						<UserNavbar session={session}/>
+				<div class="relative mr-2 flex items-center">
+					<UserNavbar {session} />
 				</div>
 			{:else}
-					<Button variant="outline" class="!visible" href="/login">Увійти</Button>
-					<Button href="/signup">Зареєструватися</Button>
+				<Button variant="outline" class="!visible" href="/login">Увійти</Button>
+				<Button href="/signup">Зареєструватися</Button>
 			{/if}
 		</div>
 	</div>
