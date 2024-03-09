@@ -33,11 +33,10 @@
 		});
 	}
 
-	$: if (selectedCategories.length > 0) {
-		formData.update((currentData) => {
-			return { ...currentData, Categories: selectedCategories };
-		});
-	}
+	$: formData.update((currentData) => {
+		return { ...currentData, Categories: selectedCategories };
+	});
+
 
 	$: selectedLevelID =
 		$formData.LevelID && levels.length > 0
@@ -74,8 +73,8 @@
 				maxTags={3}
 				on:update={onTagSelectionUpdate}
 			/>
-
 			<input hidden {...attrs} bind:value={$formData.Categories} />
+
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>

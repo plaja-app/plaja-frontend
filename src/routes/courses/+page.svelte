@@ -5,35 +5,15 @@
 	import * as Accordion from "$lib/components/shadcn-ui/accordion";
 	import { Separator } from '$lib/components/shadcn-ui/separator';
 	import Search from '$lib/components/Search.svelte';
+	import SettingsSidebar from '$lib/components/settings/SettingsSidebar.svelte';
 	export let data: PageData;
 </script>
-
-<!--<div class="flex columns-2 pt-5 pb-10">-->
-<!--	<div class="pl-14">-->
-<!--		<p class="font-semibold text-xl pb-5">Фільтри</p>-->
-<!--		<div>-->
-<!--			<CheckboxesGroup label="Мова" />-->
-<!--		</div>-->
-<!--	</div>-->
-<!--	<div class="ps-10 flex-grow">-->
-<!--		<div class="row-auto">-->
-<!--			<p class="font-semibold text-xl pb-5">Курси</p>-->
-<!--		</div>-->
-<!--		<div id="courses-table" class="grid flex-grow mr-5 gap-5">-->
-<!--			{#each data.courses as course (course.ID)}-->
-<!--				<CourseCard-->
-<!--					course={course}-->
-<!--				/>-->
-<!--			{/each}-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
 
 <div class="mx-10 py-8">
 	<div class="grid grid-cols-12">
 		<div class="col-span-2 mr-8">
 			<p class="pb-5 text-xl font-semibold">Фільтри</p>
-			<Accordion.Root>
+			<Accordion.Root multiple >
 				<Accordion.Item value="item-1">
 					<Accordion.Trigger>Мова</Accordion.Trigger>
 					<Accordion.Content>

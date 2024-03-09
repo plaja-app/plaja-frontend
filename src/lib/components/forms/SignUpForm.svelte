@@ -25,8 +25,8 @@
 <form method="POST" use:enhance class="flex flex-col">
 	<Form.Field {form} name="FullName">
 		<Form.Control let:attrs>
-			<Form.Label>Повне ім'я</Form.Label>
-			<Input placeholder="Повне ім'я" {...attrs} bind:value={$formData.FullName} />
+			<Form.Label>Ім'я та прізвище</Form.Label>
+			<Input placeholder="Ім'я та прізвище" {...attrs} bind:value={$formData.FullName} />
 			<Form.FieldErrors class="font-normal" />
 		</Form.Control>
 	</Form.Field>
