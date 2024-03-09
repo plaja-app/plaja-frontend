@@ -57,7 +57,7 @@
 
 				<div class="flex gap-1.5 pb-1">
 					<IconCertificate stroke={1.5} class="h-5 w-5" />
-					<p>X сертифікатів</p>
+					<p>{data.certificatesCount} сертифікатів</p>
 				</div>
 			</div>
 
@@ -90,10 +90,18 @@
 			<div>
 				<p class="text-xl font-medium">Сертифікати</p>
 				<p class="text-muted-foreground">
-					{#if data.session?.User?.ID === user.ID}
-						Ви ще не отримали жодного сертифікату.
+					{#if data.certificatesCount === 0}
+						{#if data.session?.User?.ID === user.ID}
+							Ви ще не отримали жодного сертифікату.
+						{:else}
+							Користувач ще не отримав жодного сертифікату.
+						{/if}
 					{:else}
-						Користувач ще не отримав жодного сертифікату.
+						{#if data.session?.User?.ID === user.ID}
+							Ви отримали {data.certificatesCount} сертифікатів.
+						{:else}
+							Користувач отримав {data.certificatesCount} сертифікатів.
+						{/if}
 					{/if}
 				</p>
 			</div>

@@ -33,6 +33,7 @@ type Course = {
 	Title: string;
 	Level: CourseLevel;
 	Price: number;
+	StatusID: number;
 	ShortDescription: string;
 	Description: string;
 	Instructor: User;

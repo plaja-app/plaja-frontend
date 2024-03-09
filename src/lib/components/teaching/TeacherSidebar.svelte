@@ -1,29 +1,3 @@
-<!--<script lang="ts">-->
-<!--	import { cn } from '$lib/utils';-->
-<!--	import { Button } from '$lib/components/shadcn-ui/button';-->
-<!--	import { Separator } from '$lib/components/shadcn-ui/separator';-->
-<!--	import { IconChartCandle as Stats } from '@tabler/icons-svelte';-->
-<!--	import { IconBooks as Courses } from '@tabler/icons-svelte';-->
-<!--</script>-->
-
-<!--<div class="ml-4">-->
-<!--	<div class="z-50 mx-2 my-4">-->
-<!--		<p class="mb-3 ml-4 text-xl font-medium">Викладання</p>-->
-
-<!--		<div class="grid gap-1">-->
-<!--			<Button variant="ghost" class="w-full justify-start">-->
-<!--				<Courses stroke={1.5} class="mr-2 size-5" />-->
-<!--				Мої курси-->
-<!--			</Button>-->
-
-<!--			<Button variant="ghost" class="w-full justify-start">-->
-<!--				<Stats stroke={1.5} class="mr-2 size-5" />-->
-<!--				Статистика-->
-<!--			</Button>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
-
 <script lang="ts">
 	import { cn } from '$lib/utils';
 	import { Button } from '$lib/components/shadcn-ui/button';

@@ -11,19 +11,38 @@
 	import { IconTargetArrow } from '@tabler/icons-svelte';
 
 	export let course: Course;
+
+	function getStatusTitle(statusID: number) {
+		switch (statusID) {
+			case 1:
+				return 'Чорновик';
+			case 2:
+				return 'На розгляді';
+			case 3:
+				return 'Вимагаються зміни';
+			case 4:
+				return 'Опублікований';
+			case 5:
+				return 'Усунутий';
+			case 6:
+				return 'Архівований';
+			default:
+				return 'Невідомий статус';
+		}
+	}
 </script>
 
 <Card.Root
 	class="cursor-pointer shadow-sm"
 	on:click={() => {
 		if (!window.getSelection()?.toString()) {
-			location.href = `courses/${course.ID}`;
+			location.href = `teaching/courses/edit/${course.ID}`;
 		}
 	}}
 >
 	<div class="flex columns-2">
 		<div class="p-4">
-			<div class="h-[150px] w-[240px] overflow-hidden rounded-md bg-neutral-400">
+			<div class="h-[150px] w-[240px] border border-gray-200 overflow-hidden rounded-md bg-neutral-400">
 				<img src={course.Thumbnail} alt={course.Title} class="h-full w-full object-cover" />
 			</div>
 		</div>
@@ -42,13 +61,7 @@
 				</div>
 
 				<Card.Description class="place-self-start">
-					<Button
-						variant="link"
-						class="h-1 p-0 font-normal text-muted-foreground"
-						href="/users/{course.Instructor.ID}"
-					>
-						{course.Instructor.FirstName + ' ' + course.Instructor.LastName}
-					</Button>
+					{getStatusTitle(course.StatusID)}
 				</Card.Description>
 			</Card.Header>
 
@@ -102,7 +115,7 @@
 					{/if}
 				</div>
 
-				<Button>Детальніше</Button>
+				<Button>Редагувати</Button>
 			</Card.Footer>
 		</div>
 	</div>
