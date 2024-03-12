@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/shadcn-ui/avatar/index';
-	import Search from '$lib/components/Search.svelte';
+	import Search from '$lib/components/layouts/Search.svelte';
 	import { Separator } from '$lib/components/shadcn-ui/separator';
 	import {
 		IconBooks,
@@ -12,6 +12,7 @@
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils';
 	import { Button } from '$lib/components/shadcn-ui/button';
+
 	export let data: PageData;
 
 	$: user = data.user[0] as User;

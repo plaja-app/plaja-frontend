@@ -36,7 +36,7 @@
 	class="cursor-pointer shadow-sm"
 	on:click={() => {
 		if (!window.getSelection()?.toString()) {
-			location.href = `teaching/courses/edit/${course.ID}`;
+			location.href = `teaching/courses/edit/${course.ID}/general`;
 		}
 	}}
 >
@@ -71,30 +71,10 @@
 
 			<Card.Footer class="justify-between">
 				<div class="flex gap-2">
-					<!--					<Badge variant="outline">-->
-					<!--						<div class="p-1 flex gap-1.5">-->
-					<!--							<div class="flex gap-0.5">-->
-					<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--								<IconStarFilled stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--								<IconStar stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--							</div>-->
-					<!--							<p class="font-normal text-muted-foreground">3.8 (25 тис.)</p>-->
-					<!--						</div>-->
-					<!--					</Badge>-->
-
-					<!--					<Badge variant="outline">-->
-					<!--						<div class="p-1 flex gap-1">-->
-					<!--							<IconUsers stroke={1.5} class="h-4 w-4 text-muted-foreground" />-->
-					<!--							<p class="font-normal text-muted-foreground">27 тис.</p>-->
-					<!--						</div>-->
-					<!--					</Badge>-->
-
 					<Badge variant="outline">
 						<div class="flex gap-1 p-1">
 							<IconClock stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-							<p class="font-normal text-muted-foreground">35 год.</p>
+							<p class="font-normal text-muted-foreground">{course.Length} хв</p>
 						</div>
 					</Badge>
 

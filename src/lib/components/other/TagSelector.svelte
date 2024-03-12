@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge } from '$lib/components/shadcn-ui/badge/index';
+	import { Badge } from '$lib/components/shadcn-ui/badge';
 	import { IconX } from '@tabler/icons-svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import * as Select from '$lib/components/shadcn-ui/select';

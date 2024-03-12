@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Input } from '$lib/components/shadcn-ui/input/index';
+	import { Input } from '$lib/components/shadcn-ui/input';
 </script>
 
 <div class="flex items-end gap-2" {...$$restProps}>

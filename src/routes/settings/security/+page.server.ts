@@ -30,12 +30,14 @@ export const actions: Actions = {
 			});
 		}
 
+		const { NewPasswordRepeat, ...data } = form.data;
+
 		// const response = await fetch(`${BackendURL}/api/v1/users/signup`,
 		// 	{method: "POST",
 		// 		headers: {
 		// 			"Content-Type": "application/json",
 		// 		},
-		// 		body: JSON.stringify(form.data)
+		// 		body: JSON.stringify(data)
 		// 	});
 
 		// if (response.ok) {

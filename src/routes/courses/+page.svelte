@@ -1,10 +1,10 @@
 <script lang="ts">
-	import CheckboxesGroup from '$lib/components/CheckboxGroup.svelte';
-	import CourseCard from '$lib/components/CourseCard.svelte';
+	import CheckboxesGroup from '$lib/components/other/CheckboxGroup.svelte';
+	import CourseCard from '$lib/components/cards/CourseCard.svelte';
 	import type { PageData } from './$types';
 	import * as Accordion from "$lib/components/shadcn-ui/accordion";
 	import { Separator } from '$lib/components/shadcn-ui/separator';
-	import Search from '$lib/components/Search.svelte';
+	import Search from '$lib/components/layouts/Search.svelte';
 	import SettingsSidebar from '$lib/components/settings/SettingsSidebar.svelte';
 	export let data: PageData;
 </script>

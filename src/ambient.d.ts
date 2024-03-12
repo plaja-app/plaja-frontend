@@ -37,9 +37,20 @@ type Course = {
 	ShortDescription: string;
 	Description: string;
 	Instructor: User;
+	Length: number;
 	HasCertificate: boolean;
 	Categories: CourseCategory[];
 };
+
+type CourseCertificate = {
+	ID: number,
+	UserID: number,
+	User: User,
+	CourseID: number,
+	Course: Course,
+	CreatedAt: string,
+	UpdatedAt: string,
+}
 
 type CookieAttributes = {
 	value: string;

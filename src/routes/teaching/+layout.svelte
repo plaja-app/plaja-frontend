@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../../app.pcss';
-	import Navbar from '$lib/components/Navbar.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import Navbar from '$lib/components/layouts/Navbar.svelte';
+	import Footer from '$lib/components/layouts/Footer.svelte';
 	import type { LayoutData } from './$types';
 	import { Toaster } from '$lib/components/shadcn-ui/sonner';
 	import { ModeWatcher } from 'mode-watcher';
@@ -11,10 +11,10 @@
 	import { IconChartCandle as Stats } from '@tabler/icons-svelte';
 	import { IconBooks as Courses } from '@tabler/icons-svelte';
 	import { IconChecklist as Tasks } from '@tabler/icons-svelte';
-	import { IconTextCaption as Appearance } from '@tabler/icons-svelte';
+	import { IconSettings as General } from '@tabler/icons-svelte';
 	import SettingsSidebar from '$lib/components/settings/SettingsSidebar.svelte';
-	$: isApplyPage = $page.url.pathname.endsWith('/apply');
-	$: isEditPage = $page.url.pathname.startsWith('/teaching/courses/edit/');
+	$: isApplyPage = $page.url.pathname.endsWith('/apply') || $page.url.pathname.startsWith('/teaching/courses/edit/');
+	// $: isEditPage = $page.url.pathname.startsWith('/teaching/courses/edit/');
 
 	const sidebarNavItems = [
 		{
@@ -33,37 +33,15 @@
 		{
 			icon: Tasks,
 			title: 'Завдання',
-			href: `/teaching/courses/edit/9999`
+			href: `/teaching/courses/edit/`
 		},
 		{
-			icon: Appearance,
+			icon: General,
 			title: 'Дані',
-			href: '/teaching/courses/edit/9999/basics'
+			href: '/teaching/courses/edit/[id]/general'
 		}
 	];
 </script>
-
-<!--{#if !isApplyPage}-->
-<!--	<div class="my-5 grid grid-cols-9">-->
-<!--		<div class="col-span-1">-->
-<!--			<div class="fixed">-->
-<!--				<TeacherSidebar items={sidebarNavItems} />-->
-<!--			</div>-->
-<!--		</div>-->
-
-<!--		<div class="col-span-8">-->
-<!--			<main>-->
-<!--				<slot />-->
-<!--			</main>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--{:else}-->
-<!--	<div class="my-5">-->
-<!--		<main>-->
-<!--			<slot />-->
-<!--		</main>-->
-<!--	</div>-->
-<!--{/if}-->
 
 {#if !isApplyPage}
 	<div class="flex flex-col space-y-8 lg:flex-row lg:space-x-5 lg:space-y-0">
@@ -72,10 +50,10 @@
 				<p class="mx-2 my-4 mb-3 ml-9 text-xl font-medium">Викладання</p>
 				<SettingsSidebar items={sidebarNavItems} />
 
-				{#if isEditPage}
-					<p class="mx-2 my-4 mb-3 ml-9 text-xl font-medium">Курс</p>
-					<SettingsSidebar items={sidebarNavEditItems} />
-				{/if}
+				<!--{#if isEditPage}-->
+				<!--	<p class="mx-2 my-4 mb-3 ml-9 text-xl font-medium">Курс</p>-->
+				<!--	<SettingsSidebar items={sidebarNavEditItems} />-->
+				<!--{/if}-->
 			</div>
 
 		</aside>

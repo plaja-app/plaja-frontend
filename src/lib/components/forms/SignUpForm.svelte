@@ -4,6 +4,8 @@
 	import { formSchema, type FormSchema } from '../../../routes/signup/schema';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { IconEye } from '@tabler/icons-svelte';
+	import { IconEyeOff } from '@tabler/icons-svelte';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { EyeClosed, EyeOpen, LinkedinLogo } from 'radix-icons-svelte';
 
@@ -13,7 +15,7 @@
 		validators: zodClient(formSchema)
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, message } = form;
 
 	let isPasswordVisible = false;
 
@@ -23,10 +25,22 @@
 </script>
 
 <form method="POST" use:enhance class="flex flex-col">
-	<Form.Field {form} name="FullName">
+	{#if $message}
+		<p class="pb-2 text-center font-normal text-destructive">{$message}</p>
+	{/if}
+
+	<Form.Field {form} name="FirstName">
 		<Form.Control let:attrs>
-			<Form.Label>Ім'я та прізвище</Form.Label>
-			<Input placeholder="Ім'я та прізвище" {...attrs} bind:value={$formData.FullName} />
+			<Form.Label>Ім'я</Form.Label>
+			<Input placeholder="Тарас" {...attrs} bind:value={$formData.FirstName} />
+			<Form.FieldErrors class="font-normal" />
+		</Form.Control>
+	</Form.Field>
+
+	<Form.Field {form} name="LastName">
+		<Form.Control let:attrs>
+			<Form.Label>Прізвище</Form.Label>
+			<Input placeholder="Шевченко" {...attrs} bind:value={$formData.LastName} />
 			<Form.FieldErrors class="font-normal" />
 		</Form.Control>
 	</Form.Field>
@@ -34,7 +48,7 @@
 	<Form.Field {form} name="Email">
 		<Form.Control let:attrs>
 			<Form.Label>Email</Form.Label>
-			<Input placeholder="Email" {...attrs} bind:value={$formData.Email} />
+			<Input placeholder="taras@example.com" {...attrs} bind:value={$formData.Email} />
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
@@ -42,21 +56,34 @@
 	<Form.Field {form} name="Password">
 		<Form.Control let:attrs>
 			<Form.Label>Пароль</Form.Label>
-
 			<div class="flex items-center gap-1">
 				<Input
 					type={isPasswordVisible ? 'text' : 'password'}
-					placeholder="Пароль"
 					{...attrs}
 					bind:value={$formData.Password}
 				/>
-				<Button variant="outline" on:click={togglePasswordVisibility} class="shrink-0">
+				<Button variant="outline" on:click={togglePasswordVisibility} class="px-2">
 					{#if isPasswordVisible}
-						<EyeOpen />
+						<IconEye stroke={1.5} class="size-5" />
 					{:else}
-						<EyeClosed />
+						<IconEyeOff stroke={1.5} class="size-5" />
 					{/if}
 				</Button>
+			</div>
+		</Form.Control>
+		<Form.FieldErrors class="font-normal" />
+	</Form.Field>
+
+	<Form.Field {form} name="PasswordRepeat">
+		<Form.Control let:attrs>
+			<Form.Label>Підтвердьте пароль</Form.Label>
+
+			<div class="flex items-center gap-1">
+				<Input
+					type='password'
+					{...attrs}
+					bind:value={$formData.PasswordRepeat}
+				/>
 			</div>
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
@@ -65,16 +92,16 @@
 	<Form.Button class="mt-1 flex-grow">Зареєструватися</Form.Button>
 </form>
 
-<div class="relative">
-	<div class="absolute inset-0 flex items-center">
-		<span class="w-full border-t" />
-	</div>
-	<div class="relative flex justify-center text-xs uppercase">
-		<span class="bg-background px-2 text-muted-foreground"> або </span>
-	</div>
-</div>
+<!--<div class="relative">-->
+<!--	<div class="absolute inset-0 flex items-center">-->
+<!--		<span class="w-full border-t" />-->
+<!--	</div>-->
+<!--	<div class="relative flex justify-center text-xs uppercase">-->
+<!--		<span class="bg-background px-2 text-muted-foreground"> або </span>-->
+<!--	</div>-->
+<!--</div>-->
 
-<Button variant="outline" type="button">
-	<LinkedinLogo class="mr-2 h-4 w-4" />
-	Продовжити з LinkedIn
-</Button>
+<!--<Button variant="outline" type="button">-->
+<!--	<LinkedinLogo class="mr-2 h-4 w-4" />-->
+<!--	Продовжити з LinkedIn-->
+<!--</Button>-->

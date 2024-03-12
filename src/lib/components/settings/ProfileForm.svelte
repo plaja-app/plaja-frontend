@@ -3,7 +3,7 @@
 	import * as Form from '$lib/components/shadcn-ui/form';
 	import * as Avatar from '$lib/components/shadcn-ui/avatar';
 	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
-	import TagSelector from '$lib/components/TagSelector.svelte';
+	import TagSelector from '$lib/components/other/TagSelector.svelte';
 	import { IconCamera } from '@tabler/icons-svelte';
 	import { formSchema, type FormSchema } from '../../../routes/settings/schema';
 	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
@@ -112,16 +112,6 @@
 	<p class="pb-2 text-start text-sm text-muted-foreground">
 		Ваше офіційне ім'я та прізвище, що буде використовуватися в сертифікатах.
 	</p>
-
-	<!--	<Form.Field {form} name="Email">-->
-	<!--		<Form.Control let:attrs>-->
-	<!--			<Form.Label>Email</Form.Label>-->
-	<!--			<Input placeholder={session?.User?.Email} {...attrs} bind:value={$formData.Email} />-->
-	<!--		</Form.Control>-->
-	<!--		<Form.FieldErrors class="font-normal" />-->
-	<!--	</Form.Field>-->
-
-	<!--	<p class="text-start text-sm text-muted-foreground pb-2">Адресе електронної пошти, яка буде використовуватися для.</p>-->
 
 	<Form.Button class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/shadcn-ui/avatar';
 	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
-	import { Button } from '$lib/components/shadcn-ui/button/index';
+	import { Button } from '$lib/components/shadcn-ui/button';
 	import { redirect } from '@sveltejs/kit';
 	import { BackendURL } from '$lib';
-	import { Skeleton } from '$lib/components/shadcn-ui/skeleton/index.js';
+	import { Skeleton } from '$lib/components/shadcn-ui/skeleton';
 
 	export let session: Session;
 </script>

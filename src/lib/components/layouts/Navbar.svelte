@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Button } from '$lib/components/shadcn-ui/button';
-	import Logo from '$lib/components/Logo.svelte';
-	import Search from '$lib/components/Search.svelte';
-	import UserNavbar from '$lib/components/UserNavbar.svelte';
-	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu/index';
+	import Logo from '$lib/components/other/Logo.svelte';
+	import Search from '$lib/components/layouts/Search.svelte';
+	import UserNavbar from '$lib/components/layouts/UserNavbar.svelte';
+	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
 	import { HamburgerMenu } from 'radix-icons-svelte';
 
 	export let categories: CourseCategory[] = [];

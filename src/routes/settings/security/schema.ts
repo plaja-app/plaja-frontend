@@ -1,18 +1,23 @@
-import SignUpForm from '$lib/components/forms/SignUpForm.svelte';
-
 import { z } from 'zod';
 
 export const formSchema = z.object({
-	OldPassword: z.string(),
+	OldPassword: z.string()
+		.min(1, {
+			message: 'Поле не може бути порожнім.'
+		}),
 
-	NewPassword: z.string().min(8).optional(),
+	NewPassword: z.string()
+		.min(8, {
+			message: 'Мінімальна довжина паролю 8 символів.'
+		}),
 
-	Email: z
-		.string()
-		.email({
-			message: 'Некоректна адреса.'
-		})
-		.optional()
+	NewPasswordRepeat: z.string()
+		.min(8, {
+			message: 'Мінімальна довжина паролю 8 символів.'
+		}),
+}).refine((data) => data.NewPassword === data.NewPasswordRepeat, {
+	message: 'Паролі не співпадають.',
+	path: ["NewPasswordRepeat"],
 });
 
 export type FormSchema = typeof formSchema;

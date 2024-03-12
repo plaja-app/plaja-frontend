@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Input } from '$lib/components/shadcn-ui/input';
-	import TagSelector from '$lib/components/TagSelector.svelte';
+	import TagSelector from '$lib/components/other/TagSelector.svelte';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import * as Select from '$lib/components/shadcn-ui/select';
 	import * as Form from '$lib/components/shadcn-ui/form';
@@ -9,6 +9,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { browser } from '$app/environment';
 	import { writable } from 'svelte/store';
+	import { Checkbox } from '$lib/components/shadcn-ui/checkbox';
 
 	export let categories: CourseCategory[] = [];
 	export let levels: CourseLevel[] = [];
@@ -104,6 +105,26 @@
 		>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
+
+	<Form.Field {form} name="HasCertificate">
+		<Form.Control let:attrs>
+			<Form.Label>Сертифікат по завершенню</Form.Label>
+			<div class="flex items-center space-x-2 mt-1">
+				<Checkbox {...attrs} bind:checked={$formData.HasCertificate} />
+				<Form.Label class="font-normal">Видавати сертифікат</Form.Label>
+			</div>
+				<Form.Description class="mt-1 text-sm text-gray-500">
+					Користувачі
+					{#if !$formData.HasCertificate}
+						не
+					{/if}
+
+					можуть отримувати сертифікати за проходження вашого курсу.
+				</Form.Description>
+			<input name={attrs.name} value={$formData.HasCertificate} hidden />
+		</Form.Control>
+	</Form.Field>
+
 	<Form.Button class="mt-1 flex-grow">Створити</Form.Button>
 
 	<div class="mt-3">

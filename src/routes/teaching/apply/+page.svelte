@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { Button } from '$lib/components/shadcn-ui/button/index';
+	import * as Dialog from '$lib/components/shadcn-ui/dialog';
+	import TeachingApplicationForm from '$lib/components/teaching/TeachingApplicationForm.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
 <div
@@ -15,7 +20,25 @@
 					Доєднайтесь до викладачів платформи та створюйте власні навчальні матеріали
 				</p>
 			</div>
-			<Button href="/courses" class="h-11 px-5">Заповнити форму</Button>
+
+			{#if (typeof data.session === 'undefined')}
+				<Button class="h-11 px-5" href="/signup">Створити акаунт</Button>
+			{:else}
+				<Dialog.Root>
+					<Dialog.Trigger>
+						<Button class="h-11 px-5">Заповнити форму</Button>
+					</Dialog.Trigger>
+					<Dialog.Content>
+						<Dialog.Header>
+							<Dialog.Title>Викладання</Dialog.Title>
+							<Dialog.Description>
+								Надайте відповіді на кілька питань та доєдуйтесь до команди викладачів Plaja
+							</Dialog.Description>
+						</Dialog.Header>
+						<TeachingApplicationForm data={data.form} />
+					</Dialog.Content>
+				</Dialog.Root>
+			{/if}
 		</div>
 	</div>
 </div>

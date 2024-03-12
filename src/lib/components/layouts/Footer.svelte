@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LanguageSwitch from '$lib/components/LanguageSwitch.svelte';
+	import LanguageSwitch from '$lib/components/other/LanguageSwitch.svelte';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { Separator } from '$lib/components/shadcn-ui/separator';
 </script>
@@ -30,9 +30,9 @@
 		</div>
 
 		<div class="grid">
-			<div dir="rtl">
-				<LanguageSwitch />
-			</div>
+<!--			<div dir="rtl">-->
+<!--				<LanguageSwitch />-->
+<!--			</div>-->
 			<div class="place-self-end">
 				<Button variant="link" class="p-0 font-normal" href="mailto:mail@plaja.io"
 					>mail@plaja.io</Button

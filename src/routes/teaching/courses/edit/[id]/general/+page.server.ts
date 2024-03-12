@@ -1,27 +1,34 @@
 import type { PageServerLoad, Actions } from './$types';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { formSchema } from './schema';
-import { fail, redirect } from '@sveltejs/kit';
 import { toast } from 'svelte-sonner';
 import { BackendURL } from '$lib';
 
-export const load: PageServerLoad = async ({ locals }) => {
-	const session = locals.session as Session | undefined;
+export const load: PageServerLoad = async ({ params, locals }) => {
+	const id = params.id;
 
-	// if (typeof session === 'undefined') {
-	// 	throw redirect(307, '/login');
-	// }
+	const response = await fetch(`${BackendURL}/api/v1/courses?id=${id}`);
+	const courses = await response.json();
 
-	if (session) {
-		if (session.User.UserType.ID !== 1) {
-			throw redirect(303, '/teaching');
-		}
+	let course = courses[0] as Course;
+
+	const session = locals.session;
+
+	if (typeof session === 'undefined') {
+		throw redirect(303, '/'); // TODO: 401
+	}
+
+	if (session.User.ID !== course.Instructor.ID) {
+		// @ts-ignore
+		throw error(403, "У вас немає дозволу на перегляд цієї сторінки.");
 	}
 
 	return {
 		form: await superValidate(zod(formSchema)),
-		session
+		session,
+		course
 	};
 };
 
@@ -43,8 +50,7 @@ export const actions: Actions = {
 		// 	});
 
 		// if (response.ok) {
-		toast.success('Тепер ви – викладач!');
-		redirect(303, '/teaching');
+		toast.success('Дані оновлено!');
 		// }
 
 		return {

@@ -1,5 +1,5 @@
 import type { PageServerLoad, Actions } from './$types';
-import { superValidate } from 'sveltekit-superforms';
+import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { formSchema } from './schema';
 import { fail, redirect } from '@sveltejs/kit';
@@ -25,17 +25,24 @@ export const actions: Actions = {
 			});
 		}
 
+		const { PasswordRepeat, ...data } = form.data;
+
 		const response = await fetch(`${BackendURL}/api/v1/users/signup`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(form.data)
+			body: JSON.stringify(data)
 		});
 
 		if (response.ok) {
 			toast.success('Account created!');
 			redirect(303, '/login');
+		} else {
+			return message(form, 'Користувач із цією адресою електронної пошти вже існує.', {
+				// @ts-ignore
+				status: response.status
+			});
 		}
 
 		return {

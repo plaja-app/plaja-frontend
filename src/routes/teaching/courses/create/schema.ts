@@ -27,6 +27,8 @@ export const formSchema = z.object({
 		message: 'Оберіть рівень складності.'
 	}),
 
+	HasCertificate: z.boolean(),
+
 	InstructorID: z.number()
 });
 

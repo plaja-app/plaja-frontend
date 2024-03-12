@@ -4,7 +4,7 @@
 	import { EnvelopeClosed, Heart } from 'radix-icons-svelte';
 	import { HeartFilled } from 'radix-icons-svelte';
 	import { toast } from 'svelte-sonner';
-	import CourseCard from '$lib/components/CourseCard.svelte';
+	import CourseCard from '$lib/components/cards/CourseCard.svelte';
 	export let course: Course;
 
 	let inWishlist = false;

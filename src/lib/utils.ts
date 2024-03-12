@@ -94,3 +94,23 @@ export function formatDate(dateString: string): string {
 
 	return `${day}.${month}.${year}`;
 }
+
+export function buildAddToLinkedInURL(certificate: CourseCertificate) {
+	const encodedName = encodeURIComponent(certificate.Course.Title);
+	const encodedCertUrl = encodeURIComponent("plaja.io/certificates/id");
+	const date = new Date(certificate.CreatedAt);
+
+	const issueMonth = (date.getMonth() + 1).toString().padStart(2, '0');
+	const issueYear = date.getFullYear();
+
+	let url = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME`;
+	url += `&name=${encodedName}`;
+	url += `&organizationName=Plaja`;
+	url += `&issueYear=${issueYear}`;
+	url += `&issueMonth=${issueMonth}`;
+
+	url += `&certUrl=${encodedCertUrl}`;
+	url += `&certId=${certificate.ID}`;
+
+	return url;
+}

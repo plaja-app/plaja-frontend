@@ -2,12 +2,8 @@
 	import * as Card from '$lib/components/shadcn-ui/card';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { IconClock } from '@tabler/icons-svelte';
-	import { IconUsers } from '@tabler/icons-svelte';
-	import { Clock } from 'radix-icons-svelte';
 	import { IconCertificate } from '@tabler/icons-svelte';
 	import { Badge } from '$lib/components/shadcn-ui/badge';
-	import { IconStar } from '@tabler/icons-svelte';
-	import { IconStarFilled } from '@tabler/icons-svelte';
 	import { IconTargetArrow } from '@tabler/icons-svelte';
 
 	export let course: Course;
@@ -81,7 +77,7 @@
 					<Badge variant="outline">
 						<div class="flex gap-1 p-1">
 							<IconClock stroke={1.5} class="h-4 w-4 text-muted-foreground" />
-							<p class="font-normal text-muted-foreground">35 год.</p>
+							<p class="font-normal text-muted-foreground">{course.Length} хв</p>
 						</div>
 					</Badge>
 
