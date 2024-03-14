@@ -46,15 +46,13 @@ export const actions: Actions = {
 			form.data["CourseID"] = +event.params.id;
 		}
 
-		console.log("Received:", form.data);
-
 		const cookie_token = event.cookies.get('pja_user_jwt') as string;
 
 		const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
 		const token = cookie_token ?? bearer_token;
 
 		const formData = new FormData();
-// Add string and number entries
+
 		for (const key in form.data) {
 			if (key !== 'Thumbnail') {
 				// @ts-ignore
@@ -62,7 +60,6 @@ export const actions: Actions = {
 			}
 		}
 
-// Add file entry with appropriate key
 		const file = form.data.Thumbnail;
 		// @ts-ignore
 		formData.append('Thumbnail', file);

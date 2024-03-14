@@ -28,6 +28,7 @@ type CourseExercise = {
 	Course: Course;
 	Title: string;
 	CategoryID: number;
+	TypeID: number;
 	Category: CourseExerciseCategory;
 	Content: string;
 	Length: number;

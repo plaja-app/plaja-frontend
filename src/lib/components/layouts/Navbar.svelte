@@ -5,6 +5,7 @@
 	import UserNavbar from '$lib/components/layouts/UserNavbar.svelte';
 	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
 	import { HamburgerMenu } from 'radix-icons-svelte';
+	import { IconSettings } from '@tabler/icons-svelte';
 
 	export let categories: CourseCategory[] = [];
 	export let session: Session | undefined;

@@ -5,6 +5,8 @@
 	import * as Accordion from '$lib/components/shadcn-ui/accordion/index';
 	import * as ContextMenu from '$lib/components/shadcn-ui/context-menu';
 
+	import { IconHourglassHigh } from '@tabler/icons-svelte';
+	import { IconClock } from '@tabler/icons-svelte';
 	import { IconExclamationCircle } from '@tabler/icons-svelte';
 	import { IconTrash } from '@tabler/icons-svelte';
 	import { Input } from '$lib/components/shadcn-ui/input';
@@ -27,7 +29,8 @@
 
 	export let data: SuperValidated<Infer<FormSchema>>;
 	export let session: Session;
-	export let course: Course;
+
+	export let exercises: CourseExercise[]
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
@@ -145,9 +148,15 @@
 											>
 												Вміст
 											</Form.Label>
-											<Form.Description class="text-xs text-gray-500">
-												{exercise.Content.length}/{MaxContentLength}
-											</Form.Description>
+											<div class="flex flex-row gap-2">
+												<p class="text-xs text-gray-500 flex flex-row gap-0.5 mr-1.5">
+													<IconClock stroke={1.5} class="size-4 text-gray-500" />
+													~{Math.floor(exercise.Content.split(/\s+/).filter(Boolean).length / 200)} хв
+												</p>
+												<Form.Description class="text-xs text-gray-500">
+													{exercise.Content.length}/{MaxContentLength}
+												</Form.Description>
+											</div>
 										</div>
 
 										<CartaEditor {...attrs} data-invalid={$errors.Exercises?.[index]?.Content} bind:value={exercise.Content} mode="tabs" theme="editor" {carta} />

@@ -38,32 +38,33 @@
 		<Card.Content class="grid gap-2">
 			<Button class="h-11 flex-grow">Придбати</Button>
 
-			<Button
-				variant="outline"
-				class="h-11 flex-grow gap-2"
-				on:click={() => {
-					toggleWishlist();
+<!--			<Button-->
+<!--				variant="outline"-->
+<!--				class="h-11 flex-grow gap-2"-->
+<!--				on:click={() => {-->
+<!--					toggleWishlist();-->
 
-					if (inWishlist) {
-						toast.info('Курс додано до списку бажань.');
-					} else {
-						toast.info('Курс видалено зі списку бажань.');
-					}
-				}}
-			>
-				{#if inWishlist}
-					<HeartFilled />
-					<p>У списку бажаного</p>
-				{:else}
-					<Heart />
-					<p>Додати до бажаного</p>
-				{/if}
-			</Button>
+<!--					if (inWishlist) {-->
+<!--						toast.info('Курс додано до списку бажань.');-->
+<!--					} else {-->
+<!--						toast.info('Курс видалено зі списку бажань.');-->
+<!--					}-->
+<!--				}}-->
+<!--			>-->
+<!--				{#if inWishlist}-->
+<!--					<HeartFilled />-->
+<!--					<p>У списку бажаного</p>-->
+<!--				{:else}-->
+<!--					<Heart />-->
+<!--					<p>Додати до бажаного</p>-->
+<!--				{/if}-->
+<!--			</Button>-->
 
-			<Button variant="outline" class="h-11 flex-grow gap-2">
-				<EnvelopeClosed />
-				<p>Подарувати</p>
-			</Button>
+<!--			<Button variant="outline" class="h-11 flex-grow gap-2">-->
+<!--				<EnvelopeClosed />-->
+<!--				<p>Подарувати</p>-->
+<!--			</Button>-->
+<!--			-->
 		</Card.Content>
 		<Card.Footer class="place-content-center">
 			<div class="w-3/4">

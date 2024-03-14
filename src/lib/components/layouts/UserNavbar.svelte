@@ -5,13 +5,16 @@
 	import { redirect } from '@sveltejs/kit';
 	import { BackendURL } from '$lib';
 	import { Skeleton } from '$lib/components/shadcn-ui/skeleton';
+	import { IconSettings } from '@tabler/icons-svelte';
+	import { IconUserCircle } from '@tabler/icons-svelte';
+	import { IconChalkboard } from '@tabler/icons-svelte';
 
 	export let session: Session;
 </script>
 
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
-		<Button variant="destructive" builders={[builder]} class="relative aspect-square rounded-full">
+		<Button variant="ghost" builders={[builder]} class="relative px-0 aspect-square rounded-full">
 			<Avatar.Root>
 				<Avatar.Image src={session.User.ProfilePic} alt="User {session.User.ID}" />
 				<Avatar.Fallback class="text-slate-700"
@@ -34,13 +37,29 @@
 		</DropdownMenu.Item>
 		<DropdownMenu.Separator />
 
-		<DropdownMenu.Item href="/users/{session?.User?.ID}">Мій профіль</DropdownMenu.Item>
+		<DropdownMenu.Item href="/users/{session?.User?.ID}">
+			<div class="flex flex-row gap 1 items-center">
+				<IconUserCircle stroke={1.5} class="size-5" />
+				<p class="ml-1.5">Мій профіль</p>
+			</div>
+		</DropdownMenu.Item>
 		<!--			<DropdownMenu.Item href="/users/courses">Мої курси</DropdownMenu.Item>-->
-		<DropdownMenu.Item href="/settings">Налаштування</DropdownMenu.Item>
 
-		<!--{#if session?.User.UserType.Title !== "Learner"}-->
-		<DropdownMenu.Item href="/teaching">Викладання</DropdownMenu.Item>
-		<!--{/if}-->
+		<DropdownMenu.Item href="/settings">
+			<div class="flex flex-row gap 1 items-center">
+				<IconSettings stroke={1.5} class="size-5" />
+				<p class="ml-1.5">Налаштування</p>
+			</div>
+		</DropdownMenu.Item>
+
+		{#if session?.User.UserType.Title !== "Learner"}
+			<DropdownMenu.Item href="/teaching">
+				<div class="flex flex-row gap 1 items-center">
+					<IconChalkboard stroke={1.5} class="size-5" />
+					<p class="ml-1.5">Викладання</p>
+				</div>
+			</DropdownMenu.Item>
+		{/if}
 
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item

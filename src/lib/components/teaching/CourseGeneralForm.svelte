@@ -32,25 +32,10 @@
 
 	const { form: formData, enhance } = form;
 
-	// $formData.Title = course.Title;
-	// $formData.ShortDescription = course.ShortDescription;
-	// $formData.Description = course.Description;
-	// $formData.Price = course.Price;
-	// $formData.InstructorID = session.User.ID;
-	// $formData.CourseID = course.ID;
-
-	formData.update(
-		($formData) => {
-			$formData.Title = course.Title;
-			$formData.ShortDescription = course.ShortDescription;
-			$formData.Description = course.Description;
-			$formData.Price = course.Price;
-			// $formData.InstructorID = session.User.ID;
-			// $formData.CourseID = course.ID;
-			return $formData;
-		},
-		{ taint: false }
-	);
+	$formData.Title = course.Title;
+	$formData.ShortDescription = course.ShortDescription;
+	$formData.Description = course.Description;
+	$formData.Price = course.Price;
 
 	console.log($formData)
 
@@ -76,10 +61,6 @@
 		fileInput.click();
 	}
 
-	// function deleteThumbnail() {
-	// 	$formData.Thumbnail = undefined; // TODO: Change to default
-	// }
-
 	let priceValue = $formData.Price || 0;
 
 	function handleInput(event) {
@@ -91,7 +72,7 @@
 
 	const carta = new Carta({
 		extensions: [emoji(), code()],
-		disableIcons: ['quote', 'taskList', 'code']
+		disableIcons: ['quote', 'taskList', 'code', 'link']
 	});
 
 	const MaxTitleLength: number = formSchema.shape.Title._def.checks[1].value;
@@ -220,10 +201,4 @@
 	</Form.Field>
 
 	<Form.Button type="submit" class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
-
-	<div class="mt-3">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
-	</div>
 </form>

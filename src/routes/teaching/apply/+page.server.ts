@@ -34,16 +34,27 @@ export const actions: Actions = {
 			});
 		}
 
-		// const response = await fetch(`${BackendURL}/api/v1/users/signup`,
-		// 	{method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 		body: JSON.stringify(form.data)
-		// 	});
+		const cookie_token = event.cookies.get('pja_user_jwt') as string;
+		const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
+		const token = cookie_token ?? bearer_token;
+
+		if (event.locals.session) {
+			form.data["UserID"] = event.locals.session.User.ID;
+		}
+
+		console.log(form.data)
+
+		const response = await fetch(`${BackendURL}/api/v1/teaching-applications/create`,
+			{method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Cookie: `pja_user_jwt=${token}`,
+				},
+				credentials: "include",
+				body: JSON.stringify(form.data)
+			});
 
 		// if (response.ok) {
-		toast.success('Тепер ви – викладач!');
 		redirect(303, '/teaching');
 		// }
 

@@ -15,9 +15,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		return fail(401);
 	}
 
+	const response = await fetch(`${BackendURL}/api/v1/course-exercises?exercise_id=all&course_id=${id}`);
+	const exercises: CourseExercise[] = await response.json();
+
+	console.log(exercises)
+
 	return {
 		form: await superValidate(zod(formSchema)),
-		session
+		session,
+		exercises
 	};
 };
 
@@ -30,13 +36,24 @@ export const actions: Actions = {
 			});
 		}
 
-		// const response = await fetch(`${BackendURL}/api/v1/users/signup`,
-		// 	{method: "POST",
-		// 		headers: {
-		// 			"Content-Type": "application/json",
-		// 		},
-		// 		body: JSON.stringify(form.data)
-		// 	});
+		if (event.locals.session) {
+			form.data["InstructorID"] = event.locals.session.User.ID;
+			form.data["CourseID"] = +event.params.id;
+		}
+
+		console.log("Received:", form.data);
+
+		const cookie_token = event.cookies.get('pja_user_jwt') as string;
+		const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
+		const token = cookie_token ?? bearer_token;
+
+		const response = await fetch(`${BackendURL}/api/v1/course-exercises/create`, {
+			method: 'POST',
+			headers: {
+				Cookie: `pja_user_jwt=${token}`
+			},
+				body: JSON.stringify(form.data)
+			});
 
 		// if (response.ok) {
 		toast.success('Дані оновлено!');
