@@ -1,170 +1,176 @@
 <script lang="ts">
+	import { Button } from '$lib/components/shadcn-ui/button/index';
+	import * as Card from '$lib/components/shadcn-ui/card';
+	import * as Form from '$lib/components/shadcn-ui/form/index';
+	import * as Accordion from '$lib/components/shadcn-ui/accordion/index';
+	import * as ContextMenu from '$lib/components/shadcn-ui/context-menu';
+
+	import { IconExclamationCircle } from '@tabler/icons-svelte';
+	import { IconTrash } from '@tabler/icons-svelte';
 	import { Input } from '$lib/components/shadcn-ui/input';
-	import * as Form from '$lib/components/shadcn-ui/form';
-	import * as Avatar from '$lib/components/shadcn-ui/avatar';
-	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
-	import TagSelector from '$lib/components/other/TagSelector.svelte';
-	import { IconCamera } from '@tabler/icons-svelte';
-	import { formSchema, type FormSchema } from '../../../routes/teaching/courses/edit/[id]/general/schema';
-	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
-	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { browser } from '$app/environment';
-	import { Button } from '$lib/components/shadcn-ui/button';
-	import { IconPencil } from '@tabler/icons-svelte';
-	import { TextAlignBottom } from 'radix-icons-svelte';
 	import { Textarea } from '$lib/components/shadcn-ui/textarea';
-	import { Checkbox } from '$lib/components/shadcn-ui/checkbox';
+	import SuperDebug, { type Infer, setError, superForm, type SuperValidated } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+	import {
+		formSchema,
+		type FormSchema
+	} from '../../../routes/teaching/courses/edit/[id]/exercises/schema';
+	import { browser } from '$app/environment';
+	import CheckboxesGroup from '$lib/components/other/CheckboxGroup.svelte';
+	import { Carta, CartaEditor } from 'carta-md';
+	import { attachment } from '@cartamd/plugin-attachment';
+	import { emoji } from '@cartamd/plugin-emoji';
+	import { code } from '@cartamd/plugin-code';
+	import '$lib/styles/editor.scss';
+	import 'carta-md/light.css';
+	import '@cartamd/plugin-code/default.css';
+
+	export let data: SuperValidated<Infer<FormSchema>>;
 	export let session: Session;
 	export let course: Course;
-	export let data: SuperValidated<Infer<FormSchema>>;
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
 		dataType: 'json'
 	});
 
-	const { form: formData, enhance } = form;
+	const { form: formData, errors, enhance } = form;
 
-	$formData.Title = course.Title;
-	$formData.ShortDescription = course.ShortDescription;
-	$formData.Description = course.Description;
-	$formData.Price = course.Price;
-
-	let fileInput;
-
-	function triggerFileInput() {
-		fileInput.click();
+	function addExercise() {
+		console.log(formData);
+		formData.update((currentData) => ({
+			...currentData,
+			Exercises: [...(currentData.Exercises || []), { Title: '', Content: '' }]
+		}));
 	}
 
-	async function handleFileChange(event) {
-		const files = event.target.files;
-		if (files.length > 0) {
-			const file = files[0];
-			$formData.Thumbnail = event.currentTarget.files?.item(0) as File;
-		}
+	function removeExercise(index: number) {
+		formData.update((currentData) => {
+			const newExercises = currentData.Exercises ? [...currentData.Exercises] : [];
+			newExercises.splice(index, 1);
+			return { ...currentData, Exercises: newExercises };
+		});
 	}
 
-	function deleteThumbnail() {
-		$formData.Thumbnail = '';
-	}
+	const carta = new Carta({
+		extensions: [
+			// attachment({
+			// 	async upload() {
+			// 		return 'some-url-from-server.xyz';
+			// 	}
+			// }),
+			emoji(),
+			code()
+		],
+		disableIcons: ['quote', 'taskList']
+	});
 
-	let priceValue = $formData.Price || 0;
-
-	function handleInput(event) {
-		const value = event.target.value;
-		priceValue = value === "" || value < 0 ? 0 : +value;
-
-		$formData.Price = value === "" ? 0 : +value;
-	}
+	const MaxTitleLength: number = formSchema.shape.Exercises.element.shape.Title._def.checks[1].value
+	const MaxContentLength: number = formSchema.shape.Exercises.element.shape.Content._def.checks[1].value
 </script>
 
-<form method="POST" enctype="multipart/form-data" use:enhance class="flex flex-col gap-2">
-	<Form.Field {form} name="Thumbnail">
-		<Form.Control let:attrs>
-			<Form.Label>Обкладинка</Form.Label>
-			<div class="relative mt-1">
-				<input
-					type="file"
-					accept="image/*"
-					class="hidden"
-					{...attrs}
-					bind:this={fileInput}
-					bind:value={$formData.Thumbnail}
-					on:change={handleFileChange}
-				/>
-				<DropdownMenu.Root>
-					<DropdownMenu.Trigger>
-							<div class="ml-2 h-[200px] w-[320px] border border-gray-200 overflow-hidden rounded-md bg-neutral-400">
-								<img src={course.Thumbnail} alt={course.Title} class="h-full w-full object-cover" />
-							</div>
+<div class="flex flex-row justify-between">
+	<p class="text-xl font-medium">Завдання</p>
+	<Button type="button" variant="outline" class="mb-2 w-min" on:click={addExercise}
+	>Додати завдання</Button
+	>
+</div>
+<form method="POST" use:enhance class="flex flex-col">
+	<Accordion.Root multiple>
+		<Form.Field {form} name="Exercises">
+			<Form.Control let:attrs>
+				{#each $formData.Exercises as exercise, index}
+					<Accordion.Item value={`item-${index}`}>
+						<ContextMenu.Root>
+							<ContextMenu.Trigger>
+								<Accordion.Trigger>
+									<Button variant="ghost" class="me-2 flex w-full items-center justify-start pb-2 font-normal">
+										<p class="font-semibold">Завдання {index + 1}</p>
+										{#if exercise.Title !== ''}
+											<p class="font-semibold">:&nbsp;</p>
+											<p>
+												{#if exercise.Title.length > MaxTitleLength}
+													<div class="flex flex-row justify-between">
+													{exercise.Title.substring(0, MaxTitleLength)}
+													</div>
+												{:else}
+													{exercise.Title}
+												{/if}
+											</p>
+										{/if}
+										{#if $errors.Exercises?.[index]?.Title || $errors.Exercises?.[index]?.Content}
+											<IconExclamationCircle stroke={1.5} class="ml-1 size-5 text-red-600" />
+										{/if}
+									</Button>
+								</Accordion.Trigger>
+								<ContextMenu.Content class="w-32">
+									<ContextMenu.Item
+										inset
+										class="flex items-center justify-between pl-2"
+										on:click={() => removeExercise(index)}
+									>
+										<IconTrash stroke={1.5} class="size-5 text-red-600" />
+										<p class="pr-1.5 text-red-600">Видалити</p>
+									</ContextMenu.Item>
+								</ContextMenu.Content>
+							</ContextMenu.Trigger>
+						</ContextMenu.Root>
+						<Accordion.Content>
+							<Card.Root class="mb-6 rounded-md shadow-none bg-secondary">
+								<Card.Content class="pt-6">
 
-							<Button variant="outline" class="absolute bottom-0 left-0 ml-0 px-2">
-								<IconPencil stroke={1.75} class="size-5" />
-							</Button>
-					</DropdownMenu.Trigger>
-					<DropdownMenu.Content>
-						<DropdownMenu.Group>
-							<DropdownMenu.Item on:click={triggerFileInput}>Змінити обкладинку</DropdownMenu.Item>
-							<DropdownMenu.Item
-								disabled={session.User.ProfilePic !== undefined}
-								on:click={deleteThumbnail}>Видалити обкладинку</DropdownMenu.Item
-							>
-						</DropdownMenu.Group>
-					</DropdownMenu.Content>
-				</DropdownMenu.Root>
-			</div>
-		</Form.Control>
-		<Form.FieldErrors class="font-normal" />
-		<p class="pt-2 text-start text-sm text-muted-foreground">
-			Обкладинка курсу (1280x720 пікселів).
-		</p>
-	</Form.Field>
+									<Form.Field {form} name={`Exercises[${index}].Title`}>
+										<div class="mb-1 flex items-center justify-between">
+											<Form.Label
+												class={$errors.Exercises?.[index]?.Title ? "text-red-600" : ""}
+											>
+												Назва
+											</Form.Label>
+											<Form.Description class="text-xs text-gray-500">
+												{exercise.Title.length}/{MaxTitleLength}
+											</Form.Description>
+										</div>
+										<Input
+											data-invalid={$errors.Exercises?.[index]?.Title}
+											{...attrs} bind:value={exercise.Title} maxlength={MaxTitleLength} />
 
-	<Form.Field {form} name="Title">
-		<Form.Control let:attrs>
-			<div class="flex justify-between items-center mb-1">
-				<Form.Label>Короткий опис курсу</Form.Label>
-				<Form.Description class="text-xs text-gray-500">
-					{$formData.Title.length}/{ formSchema.shape.Title._def.checks[1].value}
-				</Form.Description>
-			</div>
-			<Input placeholder={course.Title} {...attrs} bind:value={$formData.Title} />
-		</Form.Control>
-		<Form.FieldErrors class="font-normal" />
-	</Form.Field>
+										{#if $errors.Exercises?.[index]?.Title}
+											<span class="font-normal text-red-600">{ $errors.Exercises?.[index]?.Title}</span>
+										{/if}
+									</Form.Field>
+									<Form.Field {form} name={`Exercises[${index}].Content`}>
+										<div class="mb-1 flex items-center justify-between">
+											<Form.Label
+												class={$errors.Exercises?.[index]?.Content ? "text-red-600" : ""}
+											>
+												Вміст
+											</Form.Label>
+											<Form.Description class="text-xs text-gray-500">
+												{exercise.Content.length}/{MaxContentLength}
+											</Form.Description>
+										</div>
 
-	<Form.Field {form} name="ShortDescription">
-		<Form.Control let:attrs>
-			<div class="flex justify-between items-center mb-1">
-				<Form.Label>Короткий опис курсу</Form.Label>
-				<Form.Description class="text-xs text-gray-500">
-					{$formData.ShortDescription.length}/{ formSchema.shape.ShortDescription._def.checks[1].value}
-				</Form.Description>
-			</div>
-			<Textarea
-				{...attrs}
-				placeholder={course.ShortDescription}
-				class="resize-y max-h-36"
-				bind:value={$formData.ShortDescription}
-			/>
-		</Form.Control>
-		<Form.FieldErrors class="font-normal" />
-	</Form.Field>
+										<CartaEditor {...attrs} data-invalid={$errors.Exercises?.[index]?.Content} bind:value={exercise.Content} mode="tabs" theme="editor" {carta} />
+<!--										<input-->
+<!--											type="hidden"-->
+<!--											bind:value={exercise.Content}-->
+<!--											data-invalid={$errors.Exercises?.[index]?.Content}-->
+<!--										/>-->
 
-	<Form.Field {form} name="Description">
-		<Form.Control let:attrs>
-			<div class="flex justify-between items-center mb-1">
-				<Form.Label>Повний опис курсу</Form.Label>
-				<Form.Description class="text-xs text-gray-500">
-					{$formData.Description.length}/{ formSchema.shape.Description._def.checks[1].value}
-				</Form.Description>
-			</div>
-			<Textarea
-				{...attrs}
-				placeholder={course.Description}
-				class="resize-y min-h-48 max-h-72"
-				bind:value={$formData.Description}
-			/>
-		</Form.Control>
-		<Form.FieldErrors class="font-normal" />
-	</Form.Field>
-
-	<Form.Field {form} name="Price">
-		<Form.Control let:attrs>
-			<Form.Label>Ціна</Form.Label>
-			<div class="flex items-center gap-3 w-32">
-				<Input type="number" placeholder={course.Price.toString()} {...attrs}
-							 bind:value={priceValue} on:input={handleInput} />
-				<p class="text-xl font-normal">₴</p>
-			</div>
-		</Form.Control>
-		<Form.Description class="mt-1 text-sm text-gray-500">
-			Уведіть 0, якщо бажаєте зробити курс безкоштовним.
-		</Form.Description>
-		<Form.FieldErrors class="font-normal" />
-	</Form.Field>
-
-	<Form.Button class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
+										{#if $errors.Exercises?.[index]?.Content}
+											<span class="font-normal text-red-600">{ $errors.Exercises?.[index]?.Content}</span>
+										{/if}
+									</Form.Field>
+								</Card.Content>
+							</Card.Root>
+						</Accordion.Content>
+					</Accordion.Item>
+				{/each}
+			</Form.Control>
+			<Form.FieldErrors class="font-normal" />
+		</Form.Field>
+	</Accordion.Root>
+	<Button type="submit" class="w-min mt-1">Зберегти</Button>
 
 	<div class="mt-3">
 		{#if browser}

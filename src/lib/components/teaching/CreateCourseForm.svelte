@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { Input } from '$lib/components/shadcn-ui/input';
 	import TagSelector from '$lib/components/other/TagSelector.svelte';
-	import { Button } from '$lib/components/shadcn-ui/button';
 	import * as Select from '$lib/components/shadcn-ui/select';
 	import * as Form from '$lib/components/shadcn-ui/form';
 	import { formSchema, type FormSchema } from '../../../routes/teaching/courses/create/schema';
 	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { browser } from '$app/environment';
-	import { writable } from 'svelte/store';
 	import { Checkbox } from '$lib/components/shadcn-ui/checkbox';
 
 	export let categories: CourseCategory[] = [];
@@ -38,7 +36,6 @@
 		return { ...currentData, Categories: selectedCategories };
 	});
 
-
 	$: selectedLevelID =
 		$formData.LevelID && levels.length > 0
 			? {
@@ -56,7 +53,7 @@
 	<Form.Field {form} name="Title">
 		<Form.Control let:attrs>
 			<Form.Label>Назва</Form.Label>
-			<Input placeholder="Пр. Створення веб-застосунків" {...attrs} bind:value={$formData.Title} />
+			<Input placeholder="Створення вебзастосунків" {...attrs} bind:value={$formData.Title} />
 		</Form.Control>
 		<Form.Description class="mt-1 text-sm text-gray-500"
 			>Цей параметр можна буде змінити пізніше.</Form.Description
@@ -75,7 +72,6 @@
 				on:update={onTagSelectionUpdate}
 			/>
 			<input hidden {...attrs} bind:value={$formData.Categories} />
-
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
@@ -109,18 +105,18 @@
 	<Form.Field {form} name="HasCertificate">
 		<Form.Control let:attrs>
 			<Form.Label>Сертифікат по завершенню</Form.Label>
-			<div class="flex items-center space-x-2 mt-1">
+			<div class="mt-1 flex items-center space-x-2">
 				<Checkbox {...attrs} bind:checked={$formData.HasCertificate} />
 				<Form.Label class="font-normal">Видавати сертифікат</Form.Label>
 			</div>
-				<Form.Description class="mt-1 text-sm text-gray-500">
-					Користувачі
-					{#if !$formData.HasCertificate}
-						не
-					{/if}
+			<Form.Description class="mt-1 text-sm text-gray-500">
+				Користувачі
+				{#if !$formData.HasCertificate}
+					не
+				{/if}
 
-					можуть отримувати сертифікати за проходження вашого курсу.
-				</Form.Description>
+				можуть отримувати сертифікати за проходження вашого курсу.
+			</Form.Description>
 			<input name={attrs.name} value={$formData.HasCertificate} hidden />
 		</Form.Control>
 	</Form.Field>

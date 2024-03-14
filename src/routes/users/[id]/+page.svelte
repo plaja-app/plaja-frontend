@@ -97,12 +97,10 @@
 						{:else}
 							Користувач ще не отримав жодного сертифікату.
 						{/if}
+					{:else if data.session?.User?.ID === user.ID}
+						Ви отримали {data.certificatesCount} сертифікатів.
 					{:else}
-						{#if data.session?.User?.ID === user.ID}
-							Ви отримали {data.certificatesCount} сертифікатів.
-						{:else}
-							Користувач отримав {data.certificatesCount} сертифікатів.
-						{/if}
+						Користувач отримав {data.certificatesCount} сертифікатів.
 					{/if}
 				</p>
 			</div>

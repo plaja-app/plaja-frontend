@@ -19,7 +19,9 @@
 		class="border-b border-border/40 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60"
 	>
 		<Card.Header class="grid gap-5">
-			<div class="h-[200px] w-[325px] border border-gray-200 overflow-hidden rounded-md bg-neutral-400">
+			<div
+				class="h-[200px] w-[325px] overflow-hidden rounded-md border border-gray-200 bg-neutral-400"
+			>
 				<img src={course.Thumbnail} alt={course.Title} class="h-full w-full object-cover" />
 			</div>
 

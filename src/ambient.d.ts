@@ -17,6 +17,22 @@ type User = {
 	CreatedAt: string;
 };
 
+type CourseExerciseCategory = {
+	ID: number;
+	Title: string;
+};
+
+type CourseExercise = {
+	ID: number;
+	CourseID: number;
+	Course: Course;
+	Title: string;
+	CategoryID: number;
+	Category: CourseExerciseCategory;
+	Content: string;
+	Length: number;
+};
+
 type CourseCategory = {
 	ID: number;
 	Title: string;
@@ -43,14 +59,14 @@ type Course = {
 };
 
 type CourseCertificate = {
-	ID: number,
-	UserID: number,
-	User: User,
-	CourseID: number,
-	Course: Course,
-	CreatedAt: string,
-	UpdatedAt: string,
-}
+	ID: number;
+	UserID: number;
+	User: User;
+	CourseID: number;
+	Course: Course;
+	CreatedAt: string;
+	UpdatedAt: string;
+};
 
 type CookieAttributes = {
 	value: string;

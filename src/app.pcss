@@ -1,8 +1,41 @@
 @tailwind base;
+
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+	h1 {
+		@apply text-2xl;
+		@apply font-medium;
+	}
+
+	h2 {
+		@apply text-xl;
+		@apply font-medium;
+	}
+
+	h3 {
+		@apply text-lg;
+		@apply font-medium;
+	}
+
+	ul,
+	ol {
+		@apply list-decimal pl-5;
+	}
+
+	ul {
+		@apply list-disc;
+	}
+
+	li {
+		@apply mb-2;
+	}
+
+	strong {
+		@apply font-semibold;
+	}
+
 	:root {
 		--background: 0 0% 100%;
 		--foreground: 222.2 84% 4.9%;

@@ -79,11 +79,7 @@
 			<Form.Label>Підтвердьте пароль</Form.Label>
 
 			<div class="flex items-center gap-1">
-				<Input
-					type='password'
-					{...attrs}
-					bind:value={$formData.PasswordRepeat}
-				/>
+				<Input type="password" {...attrs} bind:value={$formData.PasswordRepeat} />
 			</div>
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />

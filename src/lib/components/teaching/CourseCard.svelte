@@ -42,7 +42,9 @@
 >
 	<div class="flex columns-2">
 		<div class="p-4">
-			<div class="h-[150px] w-[240px] border border-gray-200 overflow-hidden rounded-md bg-neutral-400">
+			<div
+				class="h-[150px] w-[240px] overflow-hidden rounded-md border border-gray-200 bg-neutral-400"
+			>
 				<img src={course.Thumbnail} alt={course.Title} class="h-full w-full object-cover" />
 			</div>
 		</div>

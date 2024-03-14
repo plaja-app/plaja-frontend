@@ -21,7 +21,7 @@
 				</p>
 			</div>
 
-			{#if (typeof data.session === 'undefined')}
+			{#if typeof data.session === 'undefined'}
 				<Button class="h-11 px-5" href="/signup">Створити акаунт</Button>
 			{:else}
 				<Dialog.Root>

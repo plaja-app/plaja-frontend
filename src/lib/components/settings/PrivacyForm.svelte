@@ -29,11 +29,7 @@
 		<Form.Control let:attrs>
 			<Form.Label>Новий пароль</Form.Label>
 			<div class="flex items-center gap-1">
-				<Input
-					type="password"
-					{...attrs}
-					bind:value={$formData.NewPassword}
-				/>
+				<Input type="password" {...attrs} bind:value={$formData.NewPassword} />
 			</div>
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
@@ -43,22 +39,19 @@
 		<Form.Control let:attrs>
 			<Form.Label>Підтвердьте новий пароль</Form.Label>
 			<div class="flex items-center gap-1">
-				<Input
-					type="password"
-					{...attrs}
-					bind:value={$formData.NewPasswordRepeat}
-				/>
+				<Input type="password" {...attrs} bind:value={$formData.NewPasswordRepeat} />
 			</div>
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
 
-	<Form.Button class="mt-1 mb-2 w-min flex-grow">Зберегти зміни</Form.Button>
+	<Form.Button class="mb-2 mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
 
 	<a
 		class="pb-2 text-start text-sm text-muted-foreground hover:underline"
 		data-sveltekit-preload-data="off"
-		href="/settings/privacy/password-reset">Забули пароль?</a>
+		href="/settings/privacy/password-reset">Забули пароль?</a
+	>
 	<div class="mt-3">
 		{#if browser}
 			<SuperDebug data={$formData} />

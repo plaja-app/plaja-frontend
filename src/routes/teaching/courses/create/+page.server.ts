@@ -30,7 +30,6 @@ export const actions: Actions = {
 		}
 
 		const cookie_token = event.cookies.get('pja_user_jwt') as string;
-
 		const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
 		const token = cookie_token ?? bearer_token;
 

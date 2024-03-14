@@ -19,13 +19,13 @@
 
 	$: selectedExperience = $formData.Experience
 		? {
-			label: $formData.Experience,
-			value: $formData.Experience
-		}
+				label: $formData.Experience,
+				value: $formData.Experience
+			}
 		: undefined;
 </script>
 
-<form method="POST" use:enhance class="w-auto max-w-[460px]" >
+<form method="POST" use:enhance class="w-auto max-w-[460px]">
 	<Form.Field {form} name="Experience">
 		<Form.Control let:attrs>
 			<Form.Label>Досвід викладання</Form.Label>
@@ -52,11 +52,7 @@
 	<Form.Field {form} name="Motivation">
 		<Form.Control let:attrs>
 			<Form.Label>Ваша мотивація</Form.Label>
-			<Textarea
-				{...attrs}
-				class="resize-y max-h-36"
-				bind:value={$formData.Motivation}
-			/>
+			<Textarea {...attrs} class="max-h-36 resize-y" bind:value={$formData.Motivation} />
 		</Form.Control>
 		<Form.Description class="mt-1 text-sm text-gray-500">До 150 символів.</Form.Description>
 		<Form.FieldErrors class="font-normal" />
@@ -65,11 +61,7 @@
 	<Form.Field {form} name="PlatformChoice">
 		<Form.Control let:attrs>
 			<Form.Label>Чому ви обрали Plaja?</Form.Label>
-			<Textarea
-				{...attrs}
-				class="resize-y max-h-20"
-				bind:value={$formData.PlatformChoice}
-			/>
+			<Textarea {...attrs} class="max-h-20 resize-y" bind:value={$formData.PlatformChoice} />
 		</Form.Control>
 		<Form.Description class="mt-1 text-sm text-gray-500">До 50 символів.</Form.Description>
 		<Form.FieldErrors class="font-normal" />

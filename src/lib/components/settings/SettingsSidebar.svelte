@@ -13,7 +13,7 @@
 	});
 </script>
 
-<nav class={cn('z-50 mx-2 my-4 ml-8 flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1')}>
+<nav class={cn('z-50 mx-2 my-4 ml-8 mr-0 flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1')}>
 	{#each items as item}
 		{@const isActive = $page.url.pathname === item.href}
 		<Button

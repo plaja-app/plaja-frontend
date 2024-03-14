@@ -13,7 +13,9 @@
 	import { IconChecklist as Tasks } from '@tabler/icons-svelte';
 	import { IconSettings as General } from '@tabler/icons-svelte';
 	import SettingsSidebar from '$lib/components/settings/SettingsSidebar.svelte';
-	$: isApplyPage = $page.url.pathname.endsWith('/apply') || $page.url.pathname.startsWith('/teaching/courses/edit/');
+	$: isApplyPage =
+		$page.url.pathname.endsWith('/apply') ||
+		$page.url.pathname.startsWith('/teaching/courses/edit/');
 	// $: isEditPage = $page.url.pathname.startsWith('/teaching/courses/edit/');
 
 	const sidebarNavItems = [
@@ -55,7 +57,6 @@
 				<!--	<SettingsSidebar items={sidebarNavEditItems} />-->
 				<!--{/if}-->
 			</div>
-
 		</aside>
 		<div class="ml-80 w-auto flex-1 pr-20">
 			<slot />

@@ -17,7 +17,7 @@
 
 		setTimeout(() => {
 			showConfetti = false;
-		}, confettiTimeout*2);
+		}, confettiTimeout * 2);
 	}
 </script>
 
@@ -35,7 +35,9 @@
 			<div class="w-1">
 				<p class="font-medium">Опис</p>
 			</div>
-			<Button variant="destructive" on:click={createCertificateAndShowConfetti}>Створити сертифікат</Button>
+			<Button variant="destructive" on:click={createCertificateAndShowConfetti}
+				>Створити сертифікат</Button
+			>
 		</div>
 	</div>
 

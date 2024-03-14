@@ -32,21 +32,20 @@
 		CreatedAt: '2024-03-06 16:34:11.694000 +00:00'
 	};
 
-	console.log("Session:", data.session?.User?.ID)
-	console.log("Certificate:", certificate.User.ID)
+	console.log('Session:', data.session?.User?.ID);
+	console.log('Certificate:', certificate.User.ID);
 </script>
 
 <div class="mx-32 my-12 pt-8">
 	<div class="grid grid-cols-4 grid-rows-1 gap-24">
 		<div class="col-span-3 shrink flex-row gap-20">
-			<div class="grid rounded-lg gap-6">
+			<div class="grid gap-6 rounded-lg">
 				<AspectRatio ratio={3 / 2}>
 					<img
 						src="http://localhost:8080/api/v1/storage/certificates/test_certificate.png"
 						alt="Certificate {certificate.ID}"
-						class="h-full rounded-lg w-full object-cover duration-175 transform shadow-sm
-						transition-all ease-in-out border hover:-translate-y-1 hover:shadow-lg shadow-gray-100"
-
+						class="duration-175 h-full w-full transform rounded-lg border object-cover
+						shadow-sm shadow-gray-100 transition-all ease-in-out hover:-translate-y-1 hover:shadow-lg"
 					/>
 				</AspectRatio>
 
@@ -78,8 +77,13 @@
 						<span class="ps-2">Завантажити</span>
 					</Button>
 
-					<Button target="_blank" rel="noopener noreferrer" style="background-color: #2d64bc; color: white;" class="w-min"
-									href={buildAddToLinkedInURL(certificate)}>
+					<Button
+						target="_blank"
+						rel="noopener noreferrer"
+						style="background-color: #2d64bc; color: white;"
+						class="w-min"
+						href={buildAddToLinkedInURL(certificate)}
+					>
 						<LinkedinLogo class="size-5" />
 						<span class="ps-2">Додати в профіль</span>
 					</Button>
