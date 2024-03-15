@@ -15,19 +15,23 @@
 	import { TextAlignBottom } from 'radix-icons-svelte';
 	import { Textarea } from '$lib/components/shadcn-ui/textarea';
 	import { Checkbox } from '$lib/components/shadcn-ui/checkbox';
-	import { Carta, CartaEditor } from 'carta-md';
+	import { Carta, CartaEditor, type CartaLabels } from 'carta-md';
 	import '$lib/styles/editor.scss';
 	import 'carta-md/light.css';
 	import { emoji } from '@cartamd/plugin-emoji';
 	import { code } from '@cartamd/plugin-code';
+	import * as AlertDialog from "$lib/components/shadcn-ui/alert-dialog";
+	import { onDestroy } from 'svelte';
+	import { Alert } from '$lib/components/shadcn-ui/alert';
+	import { Dialog } from 'bits-ui';
 
-	export let session: Session;
 	export let course: Course;
 	export let data: SuperValidated<Infer<FormSchema>>;
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
-		clearOnSubmit: 'none',
+		resetForm: false,
+		taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 	});
 
 	const { form: formData, enhance } = form;
@@ -36,8 +40,6 @@
 	$formData.ShortDescription = course.ShortDescription;
 	$formData.Description = course.Description;
 	$formData.Price = course.Price;
-
-	console.log($formData)
 
 	let fileInput;
 	let imageURL = course.Thumbnail;
@@ -50,7 +52,6 @@
 		}
 	}
 
-	import { onDestroy } from 'svelte';
 	onDestroy(() => {
 		if (imageURL.startsWith('blob:')) {
 			URL.revokeObjectURL(imageURL);
@@ -75,12 +76,17 @@
 		disableIcons: ['quote', 'taskList', 'code', 'link']
 	});
 
+	const cartaLabels: Partial<CartaLabels> = {
+		writeTab: "Редактор",
+		previewTab: "Перегляд",
+	}
+
 	const MaxTitleLength: number = formSchema.shape.Title._def.checks[1].value;
 	const MaxShortDescriptionLength = formSchema.shape.ShortDescription._def.checks[1].value;
 	const MaxDescriptionLength = formSchema.shape.Description._def.checks[1].value;
 </script>
 
-<form method="POST" enctype="multipart/form-data" use:enhance class="flex flex-col gap-2">
+<form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2">
 	<Form.Field {form} name="Thumbnail">
 		<Form.Control let:attrs>
 			<Form.Label>Обкладинка</Form.Label>
@@ -166,15 +172,8 @@
 					{$formData.Description.length}/{MaxDescriptionLength}
 				</Form.Description>
 			</div>
-			<CartaEditor bind:value={$formData.Description} mode="tabs" theme="editor" {carta} />
+			<CartaEditor labels={cartaLabels} bind:value={$formData.Description} mode="tabs" theme="editor" {carta} />
 			<input type="hidden" {...attrs} bind:value={$formData.Description} />
-			<!--			<Textarea-->
-<!--				maxlength={MaxDescriptionLength}-->
-<!--				{...attrs}-->
-<!--				placeholder={course.Description}-->
-<!--				class="max-h-36 resize-y"-->
-<!--				bind:value={$formData.Description}-->
-<!--			/>-->
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>

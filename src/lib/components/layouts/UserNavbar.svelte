@@ -8,6 +8,7 @@
 	import { IconSettings } from '@tabler/icons-svelte';
 	import { IconUserCircle } from '@tabler/icons-svelte';
 	import { IconChalkboard } from '@tabler/icons-svelte';
+	import { IconLogout } from '@tabler/icons-svelte';
 
 	export let session: Session;
 </script>
@@ -38,15 +39,15 @@
 		<DropdownMenu.Separator />
 
 		<DropdownMenu.Item href="/users/{session?.User?.ID}">
-			<div class="flex flex-row gap 1 items-center">
+			<div class="flex flex-row items-center">
 				<IconUserCircle stroke={1.5} class="size-5" />
-				<p class="ml-1.5">Мій профіль</p>
+				<p class="ml-1.5">Профіль та курси</p>
 			</div>
 		</DropdownMenu.Item>
 		<!--			<DropdownMenu.Item href="/users/courses">Мої курси</DropdownMenu.Item>-->
 
 		<DropdownMenu.Item href="/settings">
-			<div class="flex flex-row gap 1 items-center">
+			<div class="flex flex-row items-center">
 				<IconSettings stroke={1.5} class="size-5" />
 				<p class="ml-1.5">Налаштування</p>
 			</div>
@@ -54,7 +55,7 @@
 
 		{#if session?.User.UserType.Title !== "Learner"}
 			<DropdownMenu.Item href="/teaching">
-				<div class="flex flex-row gap 1 items-center">
+				<div class="flex flex-row items-center">
 					<IconChalkboard stroke={1.5} class="size-5" />
 					<p class="ml-1.5">Викладання</p>
 				</div>
@@ -64,7 +65,12 @@
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item
 			on:click={() => (window.location.href = '/logout')}
-			data-sveltekit-preload-data="off"><p class="text-red-600">Вийти</p></DropdownMenu.Item
+			data-sveltekit-preload-data="off">
+			<div class="flex flex-row gap-1.5 items-center">
+				<IconLogout stroke={1.5} class="size-5 text-red-600" />
+				<p class="text-red-600">Вийти</p>
+			</div>
+		</DropdownMenu.Item
 		>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

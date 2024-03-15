@@ -73,9 +73,9 @@ export const actions: Actions = {
 			credentials: "include",
 		});
 
-		if (response.ok) {
-			console.log("works")
-		}
+		// if (response.ok) {
+		// 	console.log("works")
+		// }
 
 		return withFiles({ form });
 	}

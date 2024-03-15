@@ -5,6 +5,8 @@ export const formSchema = z.object({
 	Exercises: z
 		.array(
 			z.object({
+				ID: z.number().optional(),
+
 				Title: z
 					.string()
 					.min(1, {

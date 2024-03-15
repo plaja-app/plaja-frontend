@@ -6,6 +6,7 @@
 	import * as ContextMenu from '$lib/components/shadcn-ui/context-menu';
 
 	import { IconHourglassHigh } from '@tabler/icons-svelte';
+	import { IconFileTypography } from '@tabler/icons-svelte';
 	import { IconClock } from '@tabler/icons-svelte';
 	import { IconExclamationCircle } from '@tabler/icons-svelte';
 	import { IconTrash } from '@tabler/icons-svelte';
@@ -19,7 +20,7 @@
 	} from '../../../routes/teaching/courses/edit/[id]/exercises/schema';
 	import { browser } from '$app/environment';
 	import CheckboxesGroup from '$lib/components/other/CheckboxGroup.svelte';
-	import { Carta, CartaEditor } from 'carta-md';
+	import { Carta, CartaEditor, type CartaLabels } from 'carta-md';
 	import { attachment } from '@cartamd/plugin-attachment';
 	import { emoji } from '@cartamd/plugin-emoji';
 	import { code } from '@cartamd/plugin-code';
@@ -34,13 +35,24 @@
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
-		dataType: 'json'
+		dataType: 'json',
+		resetForm: false,
+		taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 	});
 
 	const { form: formData, errors, enhance } = form;
 
+	// $formData.Exercises = exercises
+
+	formData.update(
+		($form) => {
+			$formData.Exercises = exercises;
+			return $form;
+		},
+		{ taint: false }
+	);
+
 	function addExercise() {
-		console.log(formData);
 		formData.update((currentData) => ({
 			...currentData,
 			Exercises: [...(currentData.Exercises || []), { Title: '', Content: '' }]
@@ -68,6 +80,11 @@
 		disableIcons: ['quote', 'taskList']
 	});
 
+	const cartaLabels: Partial<CartaLabels> = {
+		writeTab: "Редактор",
+		previewTab: "Перегляд",
+	}
+
 	const MaxTitleLength: number = formSchema.shape.Exercises.element.shape.Title._def.checks[1].value
 	const MaxContentLength: number = formSchema.shape.Exercises.element.shape.Content._def.checks[1].value
 </script>
@@ -88,22 +105,27 @@
 							<ContextMenu.Trigger>
 								<Accordion.Trigger>
 									<Button variant="ghost" class="me-2 flex w-full items-center justify-start pb-2 font-normal">
-										<p class="font-semibold">Завдання {index + 1}</p>
-										{#if exercise.Title !== ''}
-											<p class="font-semibold">:&nbsp;</p>
-											<p>
-												{#if exercise.Title.length > MaxTitleLength}
-													<div class="flex flex-row justify-between">
-													{exercise.Title.substring(0, MaxTitleLength)}
-													</div>
-												{:else}
-													{exercise.Title}
+										<div class="flex flex-row gap-2">
+											<IconFileTypography stroke={1.75} class="size-5 text-gray-500"/>
+											<div class="flex-row flex">
+												<p class="font-semibold">Завдання {index + 1}</p>
+												{#if exercise.Title !== ''}
+													<p class="font-semibold">:&nbsp;</p>
+													<p>
+														{#if exercise.Title.length > MaxTitleLength}
+															<div class="flex flex-row justify-between">
+															{exercise.Title.substring(0, MaxTitleLength)}
+															</div>
+														{:else}
+															{exercise.Title}
+														{/if}
+													</p>
 												{/if}
-											</p>
-										{/if}
-										{#if $errors.Exercises?.[index]?.Title || $errors.Exercises?.[index]?.Content}
-											<IconExclamationCircle stroke={1.5} class="ml-1 size-5 text-red-600" />
-										{/if}
+												{#if $errors.Exercises?.[index]?.Title || $errors.Exercises?.[index]?.Content}
+													<IconExclamationCircle stroke={1.5} class="ml-1 size-5 text-red-600" />
+												{/if}
+											</div>
+										</div>
 									</Button>
 								</Accordion.Trigger>
 								<ContextMenu.Content class="w-32">
@@ -159,7 +181,7 @@
 											</div>
 										</div>
 
-										<CartaEditor {...attrs} data-invalid={$errors.Exercises?.[index]?.Content} bind:value={exercise.Content} mode="tabs" theme="editor" {carta} />
+										<CartaEditor  labels={cartaLabels} {...attrs} data-invalid={$errors.Exercises?.[index]?.Content} bind:value={exercise.Content} mode="tabs" theme="editor" {carta} />
 <!--										<input-->
 <!--											type="hidden"-->
 <!--											bind:value={exercise.Content}-->
@@ -180,10 +202,4 @@
 		</Form.Field>
 	</Accordion.Root>
 	<Button type="submit" class="w-min mt-1">Зберегти</Button>
-
-	<div class="mt-3">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
-	</div>
 </form>

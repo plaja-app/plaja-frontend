@@ -31,9 +31,6 @@
 		},
 		CreatedAt: '2024-03-06 16:34:11.694000 +00:00'
 	};
-
-	console.log('Session:', data.session?.User?.ID);
-	console.log('Certificate:', certificate.User.ID);
 </script>
 
 <div class="mx-32 my-12 pt-8">

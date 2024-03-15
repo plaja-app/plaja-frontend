@@ -9,8 +9,6 @@ import { BackendURL } from '$lib';
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = locals.session;
 
-	console.log(session);
-
 	if (typeof session === 'undefined') {
 		throw redirect(303, '/'); // TODO: 401
 	}

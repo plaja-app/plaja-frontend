@@ -42,8 +42,6 @@ export const actions: Actions = {
 			form.data["UserID"] = event.locals.session.User.ID;
 		}
 
-		console.log(form.data)
-
 		const response = await fetch(`${BackendURL}/api/v1/teaching-applications/create`,
 			{method: "POST",
 				headers: {

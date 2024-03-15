@@ -9,7 +9,6 @@
 	<div class="mx-6 my-5">
 		<CourseGeneralForm
 			data={data.form}
-			session={data.session}
 			course={data.course} />
 	</div>
 </div>

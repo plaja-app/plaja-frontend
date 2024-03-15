@@ -41,13 +41,13 @@ export const actions: Actions = {
 			form.data["CourseID"] = +event.params.id;
 		}
 
-		console.log("Received:", form.data);
+		console.log("Received Exercises:", form.data);
 
 		const cookie_token = event.cookies.get('pja_user_jwt') as string;
 		const bearer_token = event.request.headers.get("pja_user_jwt'")?.split(' ')[1];
 		const token = cookie_token ?? bearer_token;
 
-		const response = await fetch(`${BackendURL}/api/v1/course-exercises/create`, {
+		const response = await fetch(`${BackendURL}/api/v1/course-exercises/create-update`, {
 			method: 'POST',
 			headers: {
 				Cookie: `pja_user_jwt=${token}`
