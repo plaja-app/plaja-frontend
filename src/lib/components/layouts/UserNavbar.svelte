@@ -9,6 +9,7 @@
 	import { IconUserCircle } from '@tabler/icons-svelte';
 	import { IconChalkboard } from '@tabler/icons-svelte';
 	import { IconLogout } from '@tabler/icons-svelte';
+	import { IconCodeAsterix } from '@tabler/icons-svelte';
 
 	export let session: Session;
 </script>
@@ -58,6 +59,15 @@
 				<div class="flex flex-row items-center">
 					<IconChalkboard stroke={1.5} class="size-5" />
 					<p class="ml-1.5">Викладання</p>
+				</div>
+			</DropdownMenu.Item>
+		{/if}
+
+		{#if session?.User.UserType.Title === "Admin"}
+			<DropdownMenu.Item href="/admin">
+				<div class="flex flex-row items-center">
+					<IconCodeAsterix stroke={1.5} class="size-5" />
+					<p class="ml-1.5">Адмінпанель</p>
 				</div>
 			</DropdownMenu.Item>
 		{/if}

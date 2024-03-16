@@ -57,6 +57,8 @@ type Course = {
 	Length: number;
 	HasCertificate: boolean;
 	Categories: CourseCategory[];
+	CreatedAt: string,
+	UpdatedAt: string,
 };
 
 type CourseCertificate = {
