@@ -32,8 +32,8 @@ export const formSchema = z.object({
 		.min(1, {
 			message: 'Поле не може бути порожнім.'
 		})
-		.max(1000, {
-			message: 'Максимальна довжина 1000 символів.'
+		.max(2000, {
+			message: 'Максимальна довжина 2000 символів.'
 		}),
 
 	Price: z

@@ -7,10 +7,23 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 	const response = await fetch(`${BackendURL}/api/v1/users?id=${id}`);
 	const user = await response.json();
 
-	const response1 = await fetch(`${BackendURL}/api/v1/course-certificates?id=${id}`);
-	const certificatesCount = (await response1.json()).length;
+	const stats = {
+		totalCreated: 0,
+		totalCompleted: 0,
+		totalCertificates: 0,
+	};
+
+
+	const certificates = await fetch(`${BackendURL}/api/v1/course-certificates?user_id=${id}`);
+	stats.totalCertificates = (await certificates.json()).length;
+
+	const completedCourses = await fetch(`${BackendURL}/api/v1/enrollments?user_id=${id}&status_id=2,3`);
+	stats.totalCompleted = (await completedCourses.json()).length;
+
+	const createdCourses = await fetch(`${BackendURL}/api/v1/courses?instructor_id=${id}`);
+	stats.totalCreated = (await createdCourses.json()).length;
 
 	const session = locals.session;
 
-	return { user, certificatesCount, session };
+	return { user, stats, session };
 };

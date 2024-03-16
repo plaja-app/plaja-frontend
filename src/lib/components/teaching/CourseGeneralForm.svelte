@@ -31,8 +31,9 @@
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
 		resetForm: false,
-		taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 	});
+
+	// taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 
 	const { form: formData, enhance } = form;
 
@@ -71,9 +72,18 @@
 		$formData.Price = value === '' ? 0 : +value;
 	}
 
+	const ensureNewline = {
+		listeners: [
+			['input', (e) => {
+				const carta = e.detail.carta;
+				carta.setContent(carta.getContent().replace(/\n\n/g, '\n&nbsp;\n'));
+			}]
+		]
+	};
+
 	const carta = new Carta({
-		extensions: [emoji(), code()],
-		disableIcons: ['quote', 'taskList', 'code', 'link']
+		extensions: [emoji(), code(), ensureNewline],
+		disableIcons: ['quote', 'taskList', 'code', 'link', 'strikethrough']
 	});
 
 	const cartaLabels: Partial<CartaLabels> = {
@@ -86,7 +96,7 @@
 	const MaxDescriptionLength = formSchema.shape.Description._def.checks[1].value;
 </script>
 
-<form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2">
+<form method="POST" enctype="multipart/form-data" use:enhance class="flex flex-col gap-2">
 	<Form.Field {form} name="Thumbnail">
 		<Form.Control let:attrs>
 			<Form.Label>Обкладинка</Form.Label>
@@ -200,4 +210,10 @@
 	</Form.Field>
 
 	<Form.Button type="submit" class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
+
+		<div class="mt-3">
+			{#if browser}
+				<SuperDebug data={$formData} />
+			{/if}
+		</div>
 </form>

@@ -33,6 +33,8 @@ export const formSchema = z.object({
 	InstructorID: z.number(),
 
 	CourseID: z.number(),
+
+	ExercisesToDelete: z.array((z.number()))
 });
 
 export type FormSchema = typeof formSchema;

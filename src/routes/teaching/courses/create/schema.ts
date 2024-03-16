@@ -5,11 +5,11 @@ export const formSchema = z.object({
 		.string({
 			required_error: 'Назва не може бути порожньою.'
 		})
-		.max(60, {
-			message: 'Назва не може бути довшою за 60 символів.'
-		})
 		.min(1, {
 			message: 'Назва не може бути порожньою.'
+		})
+		.max(60, {
+			message: 'Назва не може бути довшою за 60 символів.'
 		}),
 
 	Categories: z

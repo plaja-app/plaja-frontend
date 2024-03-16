@@ -7,6 +7,7 @@
 	import Search from '$lib/components/layouts/Search.svelte';
 	import SettingsSidebar from '$lib/components/settings/SettingsSidebar.svelte';
 	export let data: PageData;
+
 </script>
 
 <div class="mx-10 py-8">

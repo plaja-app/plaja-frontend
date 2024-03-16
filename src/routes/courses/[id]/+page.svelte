@@ -4,6 +4,8 @@
 	import UserCard from '$lib/components/cards/UserCard.svelte';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import Confetti from '$lib/components/other/Confetti.svelte';
+	import { Carta, CartaViewer } from 'carta-md';
+	import { BackendURL } from '$lib';
 
 	export let data: PageData;
 
@@ -19,27 +21,34 @@
 			showConfetti = false;
 		}, confettiTimeout * 2);
 	}
+
+	const carta = new Carta({
+
+	});
 </script>
 
 {#if showConfetti}
 	<Confetti timeout={5000}></Confetti>
 {/if}
 
-<div class="flex columns-2 justify-between px-40 py-20">
-	<div>
+<div class="flex flex-col md:flex-row justify-between px-40 py-10">
+	<div class="max-w-screen-sm">
 		<div class="grid place-items-start gap-3.5">
 			<p class="text-3xl font-medium">{course.Title}</p>
-			<div class="pb-2">
+			<p class="font-normal text-muted-foreground">{course.ShortDescription}</p>
+			<div class="py-2 mb-3">
 				<UserCard user={course.Instructor} tag="Інструктор" />
 			</div>
-			<div class="w-1">
-				<p class="font-medium">Опис</p>
+			<div>
+				<p class="font-medium text-xl mb-1">Опис</p>
+				<CartaViewer carta={carta} value={course.Description} />
 			</div>
-			<Button variant="destructive" on:click={createCertificateAndShowConfetti}
-				>Створити сертифікат</Button
-			>
 		</div>
 	</div>
 
-	<CourseCardExpanded {course} />
+	<div class="sticky top-20 -mt-10 z-10 pt-10 self-start">
+		<CourseCardExpanded {course} />
+	</div>
 </div>
+
+

@@ -37,12 +37,11 @@
 		validators: zodClient(formSchema),
 		dataType: 'json',
 		resetForm: false,
-		taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 	});
 
-	const { form: formData, errors, enhance } = form;
+	// taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 
-	// $formData.Exercises = exercises
+	const { form: formData, errors, enhance } = form;
 
 	formData.update(
 		($form) => {
@@ -60,6 +59,10 @@
 	}
 
 	function removeExercise(index: number) {
+		const exercise = $formData.Exercises[index];
+		if (exercise && exercise.ID) {
+			$formData.ExercisesToDelete.push(exercise.ID);
+		}
 		formData.update((currentData) => {
 			const newExercises = currentData.Exercises ? [...currentData.Exercises] : [];
 			newExercises.splice(index, 1);
@@ -182,11 +185,6 @@
 										</div>
 
 										<CartaEditor  labels={cartaLabels} {...attrs} data-invalid={$errors.Exercises?.[index]?.Content} bind:value={exercise.Content} mode="tabs" theme="editor" {carta} />
-<!--										<input-->
-<!--											type="hidden"-->
-<!--											bind:value={exercise.Content}-->
-<!--											data-invalid={$errors.Exercises?.[index]?.Content}-->
-<!--										/>-->
 
 										{#if $errors.Exercises?.[index]?.Content}
 											<span class="font-normal text-red-600">{ $errors.Exercises?.[index]?.Content}</span>
@@ -202,4 +200,10 @@
 		</Form.Field>
 	</Accordion.Root>
 	<Button type="submit" class="w-min mt-1">Зберегти</Button>
+
+<!--	<div class="mt-3">-->
+<!--		{#if browser}-->
+<!--			<SuperDebug data={$formData} />-->
+<!--		{/if}-->
+<!--	</div>-->
 </form>

@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="center container relative hidden h-[780px] flex-col items-center justify-center md:grid lg:max-w-none lg:px-0"
+	class="center container relative hidden h-[680px] flex-col items-center justify-center md:grid lg:max-w-none lg:px-0"
 >
 	<div class="lg:p-8">
 		<div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[580px]">

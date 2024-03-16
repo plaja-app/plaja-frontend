@@ -47,18 +47,18 @@
 				{#if user.UserType?.Title !== 'Learner'}
 					<div class="flex gap-1.5 pb-1">
 						<IconBooks stroke={1.5} class="h-5 w-5" />
-						<p>X курсів створено</p>
+						<p>{data.stats.totalCreated} курсів створено</p>
 					</div>
 				{/if}
 
 				<div class="flex gap-1.5 pb-1">
 					<IconSchool stroke={1.5} class="h-5 w-5" />
-					<p>X курсів пройдено</p>
+					<p>{data.stats.totalCompleted} курсів пройдено</p>
 				</div>
 
 				<div class="flex gap-1.5 pb-1">
 					<IconCertificate stroke={1.5} class="h-5 w-5" />
-					<p>{data.certificatesCount} сертифікатів</p>
+					<p>{data.stats.totalCertificates} сертифікатів</p>
 				</div>
 			</div>
 

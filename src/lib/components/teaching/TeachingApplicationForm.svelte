@@ -68,10 +68,4 @@
 	</Form.Field>
 
 	<Form.Button class="mt-1">Готово</Form.Button>
-
-	<div class="mt-3">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
-	</div>
 </form>

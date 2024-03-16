@@ -18,7 +18,8 @@
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
-		dataType: 'json'
+		dataType: 'json',
+		taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 	});
 
 	const { form: formData, enhance } = form;
@@ -47,13 +48,22 @@
 	if (session) {
 		$formData.InstructorID = session?.User.ID;
 	}
+
+	const MaxTitleLength: number = formSchema.shape.Title._def.checks[1].value;
 </script>
 
 <form method="POST" use:enhance class="flex flex-col">
 	<Form.Field {form} name="Title">
 		<Form.Control let:attrs>
-			<Form.Label>Назва</Form.Label>
-			<Input placeholder="Створення вебзастосунків" {...attrs} bind:value={$formData.Title} />
+			<div class="mb-1 flex items-center justify-between">
+				<Form.Label>Назва курсу</Form.Label>
+				<Form.Description class="text-xs text-gray-500">
+					{$formData.Title.length}/{MaxTitleLength}
+				</Form.Description>
+			</div>
+			<Input
+				maxlength={MaxTitleLength}
+				placeholder="Створення вебзастосунків" {...attrs} bind:value={$formData.Title} />
 		</Form.Control>
 		<Form.Description class="mt-1 text-sm text-gray-500"
 			>Цей параметр можна буде змінити пізніше.</Form.Description
@@ -115,17 +125,11 @@
 					не
 				{/if}
 
-				можуть отримувати сертифікати за проходження вашого курсу.
+				можуть отримувати сертифікати за проходження вашого курсу
 			</Form.Description>
 			<input name={attrs.name} value={$formData.HasCertificate} hidden />
 		</Form.Control>
 	</Form.Field>
 
 	<Form.Button class="mt-1 flex-grow">Створити</Form.Button>
-
-	<div class="mt-3">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
-	</div>
 </form>

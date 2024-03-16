@@ -5,6 +5,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { fail, redirect } from '@sveltejs/kit';
 import { formSchema } from './schema';
 import { toast } from 'svelte-sonner';
+import { goto } from '$app/navigation';
 
 export const load: PageServerLoad = async () => {
 	let response1 = await fetch(`${BackendURL}/api/v1/course-categories?id=all&sort=title`);
@@ -43,7 +44,8 @@ export const actions: Actions = {
 			credentials: 'include'
 		});
 
-		redirect(303, '/teaching');
+		// redirect(303, '/teaching');
+		await goto('/teaching');
 
 		return {
 			form
