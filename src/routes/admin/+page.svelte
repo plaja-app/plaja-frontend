@@ -3,8 +3,6 @@
 	import * as Alert from '../../lib/components/shadcn-ui/alert';
 	import CourseCard from '$lib/components/teaching/CourseCard.svelte';
 	import type { PageData } from './$types';
-
-	export let data: PageData;
 </script>
 
 <div class="mx-6 my-6">

@@ -24,7 +24,5 @@ export const load: PageServerLoad = async ({ locals }) => {
 		levelsData = [];
 	}
 
-	console.log(levelsData)
-
 	return { categoriesData, levelsData };
 };

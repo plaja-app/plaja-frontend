@@ -97,7 +97,7 @@ export function formatDate(dateString: string): string {
 
 export function buildAddToLinkedInURL(certificate: CourseCertificate) {
 	const encodedName = encodeURIComponent(certificate.Course.Title);
-	const encodedCertUrl = encodeURIComponent('plaja.io/certificates/id');
+	const encodedCertUrl = encodeURIComponent(`plaja.io/certificates/${certificate.ID}`);
 	const date = new Date(certificate.CreatedAt);
 
 	const issueMonth = (date.getMonth() + 1).toString().padStart(2, '0');

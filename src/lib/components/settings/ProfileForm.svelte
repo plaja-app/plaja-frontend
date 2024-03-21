@@ -11,12 +11,14 @@
 	import { browser } from '$app/environment';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { IconPencil } from '@tabler/icons-svelte';
+	import { onDestroy } from 'svelte';
 	export let session: Session;
 	export let data: SuperValidated<Infer<FormSchema>>;
 
 	const form = superForm(data, {
 		validators: zodClient(formSchema),
-		dataType: 'json'
+		dataType: 'json',
+		resetForm: false,
 	});
 
 	const { form: formData, enhance } = form;
@@ -26,21 +28,28 @@
 
 	let fileInput;
 
+	let imageURL = session.User.ProfilePic;
+
+	function handleFileChange(event) {
+		const files = event.target.files;
+		if (files.length > 0) {
+			const file = files[0];
+			imageURL = URL.createObjectURL(file);
+		}
+	}
+
+	onDestroy(() => {
+		if (imageURL.startsWith('blob:')) {
+			URL.revokeObjectURL(imageURL);
+		}
+	});
+
 	function triggerFileInput() {
 		fileInput.click();
 	}
 
-	async function handleFileChange(event) {
-		const files = event.target.files;
-		if (files.length > 0) {
-			const file = files[0];
-			$formData.ProfilePic = event.currentTarget.files?.item(0) as File;
-		}
-	}
-
-	function deleteAvatar() {
-		$formData.ProfilePic = '';
-	}
+	const MaxFirstNameLength: number = formSchema.shape.FirstName._def.checks[1].value;
+	const MaxLastNameLength: number = formSchema.shape.LastName._def.checks[1].value;
 </script>
 
 <form method="POST" enctype="multipart/form-data" use:enhance class="flex flex-col">
@@ -54,14 +63,14 @@
 					class="hidden"
 					{...attrs}
 					bind:this={fileInput}
-					bind:value={$formData.ProfilePic}
+					on:input={(e) => ($formData.ProfilePic = e.currentTarget.files?.item(0))}
 					on:change={handleFileChange}
 				/>
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger>
 						<div class="inline-flex size-28 items-center justify-center rounded-full">
 							<Avatar.Root class="size-28">
-								<Avatar.Image src={session.User.ProfilePic} alt="User {session.User.ID}" />
+								<Avatar.Image src={imageURL} alt="User {session.User.ID}" />
 								<Avatar.Fallback class="text-4xl text-slate-700"
 									>{Array.from(session.User.FirstName)[0]}{Array.from(
 										session.User.LastName
@@ -77,10 +86,10 @@
 					<DropdownMenu.Content>
 						<DropdownMenu.Group>
 							<DropdownMenu.Item on:click={triggerFileInput}>Змінити фото</DropdownMenu.Item>
-							<DropdownMenu.Item
-								disabled={session.User.ProfilePic !== undefined}
-								on:click={deleteAvatar}>Видалити фото</DropdownMenu.Item
-							>
+<!--							<DropdownMenu.Item-->
+<!--								disabled={session.User.ProfilePic !== undefined}-->
+<!--								on:click={deleteAvatar}>Видалити фото</DropdownMenu.Item-->
+<!--							>-->
 						</DropdownMenu.Group>
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
@@ -95,16 +104,26 @@
 
 	<Form.Field {form} name="FirstName">
 		<Form.Control let:attrs>
-			<Form.Label>Ім'я</Form.Label>
-			<Input placeholder={session?.User?.FirstName} {...attrs} bind:value={$formData.FirstName} />
+			<div class="mb-1 flex items-center justify-between">
+				<Form.Label>Ім'я</Form.Label>
+				<Form.Description class="text-xs text-gray-500">
+					{$formData.FirstName.length}/{MaxFirstNameLength}
+				</Form.Description>
+			</div>
+			<Input maxlength={MaxFirstNameLength} placeholder={session?.User?.FirstName} {...attrs} bind:value={$formData.FirstName} />
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
 
 	<Form.Field {form} name="LastName">
 		<Form.Control let:attrs>
-			<Form.Label>Прізвище</Form.Label>
-			<Input placeholder={session?.User?.LastName} {...attrs} bind:value={$formData.LastName} />
+			<div class="mb-1 flex items-center justify-between">
+				<Form.Label>Прізвище</Form.Label>
+				<Form.Description class="text-xs text-gray-500">
+					{$formData.LastName.length}/{MaxLastNameLength}
+				</Form.Description>
+			</div>
+			<Input maxlength={MaxLastNameLength} placeholder={session?.User?.LastName} {...attrs} bind:value={$formData.LastName} />
 		</Form.Control>
 		<Form.FieldErrors class="font-normal" />
 	</Form.Field>
@@ -114,10 +133,4 @@
 	</p>
 
 	<Form.Button class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
-
-	<div class="mt-3">
-		{#if browser}
-			<SuperDebug data={$formData} />
-		{/if}
-	</div>
 </form>

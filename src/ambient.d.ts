@@ -1,5 +1,6 @@
 type Session = {
 	User: User;
+	Token: string,
 };
 
 type UserType = {

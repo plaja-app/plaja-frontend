@@ -15,5 +15,5 @@
 	{...$$restProps}
 >
 	<DotsHorizontal class="h-4 w-4" />
-	<span class="sr-only">More pages</span>
+<!--	<span class="sr-only">...</span>-->
 </span>

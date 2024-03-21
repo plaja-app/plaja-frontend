@@ -46,7 +46,7 @@
 			left: {
 				mapsTo: 'value',
 				ticks: {
-					formatter: (value) => value % 1 === 0 ? value.toString() : '',
+					formatter: (value: number) => value % 1 === 0 ? value.toString() : '',
 				},
 
 			},

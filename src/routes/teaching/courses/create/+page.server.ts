@@ -44,8 +44,7 @@ export const actions: Actions = {
 			credentials: 'include'
 		});
 
-		// redirect(303, '/teaching');
-		await goto('/teaching');
+		redirect(303, '/teaching');
 
 		return {
 			form

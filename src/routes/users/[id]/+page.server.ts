@@ -25,5 +25,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const session = locals.session;
 
-	return { user, stats, session };
+	const enrolledInResponse = await fetch(`${BackendURL}/api/v1/courses?user_id=${id}`);
+	const enrolledIn = await enrolledInResponse.json()
+
+	return { user, stats, enrolledIn, session };
 };

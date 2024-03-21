@@ -11,17 +11,13 @@
 	import { IconExclamationCircle } from '@tabler/icons-svelte';
 	import { IconTrash } from '@tabler/icons-svelte';
 	import { Input } from '$lib/components/shadcn-ui/input';
-	import { Textarea } from '$lib/components/shadcn-ui/textarea';
 	import SuperDebug, { type Infer, setError, superForm, type SuperValidated } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import {
 		formSchema,
 		type FormSchema
 	} from '../../../routes/teaching/courses/edit/[id]/exercises/schema';
-	import { browser } from '$app/environment';
-	import CheckboxesGroup from '$lib/components/other/CheckboxGroup.svelte';
 	import { Carta, CartaEditor, type CartaLabels } from 'carta-md';
-	import { attachment } from '@cartamd/plugin-attachment';
 	import { emoji } from '@cartamd/plugin-emoji';
 	import { code } from '@cartamd/plugin-code';
 	import '$lib/styles/editor.scss';
@@ -29,8 +25,6 @@
 	import '@cartamd/plugin-code/default.css';
 
 	export let data: SuperValidated<Infer<FormSchema>>;
-	export let session: Session;
-
 	export let exercises: CourseExercise[]
 
 	const form = superForm(data, {
@@ -38,8 +32,6 @@
 		dataType: 'json',
 		resetForm: false,
 	});
-
-	// taintedMessage: 'Внесені зміни буде втрачено. Продовжити?',
 
 	const { form: formData, errors, enhance } = form;
 

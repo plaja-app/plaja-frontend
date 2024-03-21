@@ -1,18 +1,46 @@
 <script lang="ts">
-	import * as Card from '$lib/components/shadcn-ui/card';
 	import { Button } from '$lib/components/shadcn-ui/button';
-	import { EnvelopeClosed, Heart } from 'radix-icons-svelte';
-	import { HeartFilled } from 'radix-icons-svelte';
 	import { toast } from 'svelte-sonner';
-	import CourseCard from '$lib/components/cards/CourseCard.svelte';
 	import { Badge } from '$lib/components/shadcn-ui/badge';
 	import { IconCertificate, IconClock, IconTargetArrow } from '@tabler/icons-svelte';
+	import * as Card from '$lib/components/shadcn-ui/card';
+	import { Reload } from 'radix-icons-svelte';
+	import { goto } from '$app/navigation';
+
 	export let course: Course;
+	export let isEnrolled: boolean;
+	let loading = false;
 
-	let inWishlist = false;
+	async function handleSubmit(event) {
+		event.preventDefault();
+		loading = true;
+		const formData = {
+			CourseID: course.ID,
+		};
 
-	function toggleWishlist() {
-		inWishlist = !inWishlist;
+		const response = await fetch('/api/v1/enrollments/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include',
+			body: JSON.stringify(formData)
+		});
+
+		if (response.ok) {
+			setTimeout(() => {
+				toast.success("Курс додано до бібліотеки!");
+				loading = false;
+				isEnrolled = true;
+			}, 1250);
+		} else {
+			toast.error("Помилка!");
+			loading = false;
+		}
+	}
+
+	function navigateToLearn() {
+		goto(`/courses/${course.ID}/learn`);
 	}
 </script>
 
@@ -27,6 +55,7 @@
 				<img src={course.Thumbnail} alt={course.Title} class="h-full w-full object-cover" />
 			</div>
 
+			{#if !isEnrolled}
 			<div>
 				<Card.Title class="text-2xl font-medium">
 					{#if course.Price !== 0}
@@ -36,41 +65,27 @@
 					{/if}
 				</Card.Title>
 			</div>
+				{/if}
 		</Card.Header>
 		<Card.Content class="grid gap-2">
-			{#if course.Price !== 0}
-				<Button class="h-11 flex-grow">Придбати</Button>
+<!--			<form method="POST" use:enhance>-->
+			{#if !isEnrolled}
+				{#if !loading}
+					{#if course.Price !== 0}
+						<Button class="h-11 flex-grow" on:click={handleSubmit}>Придбати</Button>
+					{:else}
+						<Button class="h-11 flex-grow" on:click={handleSubmit}>Записатися</Button>
+					{/if}
+				{:else}
+					<Button class="h-11" disabled>
+						<Reload class="mr-2 h-4 w-4 animate-spin" />
+						{#if course.Price !== 0} Записатися {:else} Записатися {/if}
+					</Button>
+				{/if}
 			{:else}
-				<Button class="h-11 flex-grow">Вивчати</Button>
+				<Button class="h-11 flex-grow" variant="outline" on:click={navigateToLearn}>Проходити</Button>
 			{/if}
 
-<!--			<Button-->
-<!--				variant="outline"-->
-<!--				class="h-11 flex-grow gap-2"-->
-<!--				on:click={() => {-->
-<!--					toggleWishlist();-->
-
-<!--					if (inWishlist) {-->
-<!--						toast.info('Курс додано до списку бажань.');-->
-<!--					} else {-->
-<!--						toast.info('Курс видалено зі списку бажань.');-->
-<!--					}-->
-<!--				}}-->
-<!--			>-->
-<!--				{#if inWishlist}-->
-<!--					<HeartFilled />-->
-<!--					<p>У списку бажаного</p>-->
-<!--				{:else}-->
-<!--					<Heart />-->
-<!--					<p>Додати до бажаного</p>-->
-<!--				{/if}-->
-<!--			</Button>-->
-
-<!--			<Button variant="outline" class="h-11 flex-grow gap-2">-->
-<!--				<EnvelopeClosed />-->
-<!--				<p>Подарувати</p>-->
-<!--			</Button>-->
-<!--			-->
 		</Card.Content>
 		<Card.Footer class="place-content-center flex flex-col gap-4">
 

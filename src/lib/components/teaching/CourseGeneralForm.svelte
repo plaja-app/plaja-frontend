@@ -9,10 +9,8 @@
 	} from '../../../routes/teaching/courses/edit/[id]/general/schema';
 	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
-	import { browser } from '$app/environment';
 	import { Button } from '$lib/components/shadcn-ui/button';
 	import { IconPencil } from '@tabler/icons-svelte';
-	import { TextAlignBottom } from 'radix-icons-svelte';
 	import { Textarea } from '$lib/components/shadcn-ui/textarea';
 	import { Checkbox } from '$lib/components/shadcn-ui/checkbox';
 	import { Carta, CartaEditor, type CartaLabels } from 'carta-md';
@@ -211,9 +209,9 @@
 
 	<Form.Button type="submit" class="mt-1 w-min flex-grow">Зберегти зміни</Form.Button>
 
-		<div class="mt-3">
-			{#if browser}
-				<SuperDebug data={$formData} />
-			{/if}
-		</div>
+<!--		<div class="mt-3">-->
+<!--			{#if browser}-->
+<!--				<SuperDebug data={$formData} />-->
+<!--			{/if}-->
+<!--		</div>-->
 </form>

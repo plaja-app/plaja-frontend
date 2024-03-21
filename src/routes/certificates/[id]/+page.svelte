@@ -6,7 +6,7 @@
 	import { IconDownload, IconLanguageHiragana } from '@tabler/icons-svelte';
 	import { Separator } from '$lib/components/shadcn-ui/separator';
 	import { LinkedinLogo } from 'radix-icons-svelte';
-	import { buildAddToLinkedInURL } from '$lib/utils';
+	import { buildAddToLinkedInURL, formatDate } from '$lib/utils';
 
 	export let data: PageData;
 
@@ -39,7 +39,7 @@
 			<div class="grid gap-6 rounded-lg">
 				<AspectRatio ratio={3 / 2}>
 					<img
-						src="http://localhost:8080/api/v1/storage/certificates/test_certificate.png"
+						src="http://localhost:8080/api/v1/storage/certificates/test-certificate.png"
 						alt="Certificate {certificate.ID}"
 						class="duration-175 h-full w-full transform rounded-lg border object-cover
 						shadow-sm shadow-gray-100 transition-all ease-in-out hover:-translate-y-1 hover:shadow-lg"
@@ -58,7 +58,7 @@
 					<a href="/courses/{certificate.Course.ID}" class="font-medium hover:underline"
 						>«{certificate.Course.Title}»</a
 					>
-					{certificate.CreatedAt}, який викладав {certificate.Course.Instructor} на Plaja.
+					{formatDate(certificate.CreatedAt)}, який викладав {certificate.Course.Instructor} на Plaja.
 				</p>
 			</div>
 		</div>

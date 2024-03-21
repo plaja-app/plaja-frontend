@@ -4,9 +4,6 @@
 	import Search from '$lib/components/layouts/Search.svelte';
 	import UserNavbar from '$lib/components/layouts/UserNavbar.svelte';
 	import * as DropdownMenu from '$lib/components/shadcn-ui/dropdown-menu';
-	import { HamburgerMenu } from 'radix-icons-svelte';
-	import { IconSettings } from '@tabler/icons-svelte';
-
 	export let categories: CourseCategory[] = [];
 	export let session: Session | undefined;
 </script>
@@ -34,7 +31,7 @@
 			class="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
 			data-te-collapse-item
 		>
-			<a class="mb-4 ml-1 mr-5 flex w-28 items-center lg:mb-0" href="/">
+			<a class="mb-0 ml-1 mr-5 flex w-28 items-center" href="/">
 				<Logo />
 			</a>
 
@@ -71,8 +68,10 @@
 					<UserNavbar {session} />
 				</div>
 			{:else}
-				<Button variant="outline" class="!visible" href="/login">Увійти</Button>
-				<Button href="/signup">Зареєструватися</Button>
+				<div class="flex flex-row gap-2">
+					<Button variant="outline" class="!visible" href="/login">Увійти</Button>
+					<Button href="/signup">Зареєструватися</Button>
+				</div>
 			{/if}
 		</div>
 	</div>

@@ -33,6 +33,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 				},
 				CreatedAt: responseUser.CreatedAt
 			};
+
 		} else {
 			event.cookies.delete('pja_user_jwt', {
 				path: '/'

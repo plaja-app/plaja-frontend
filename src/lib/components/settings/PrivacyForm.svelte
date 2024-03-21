@@ -5,8 +5,6 @@
 	import SuperDebug, { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { browser } from '$app/environment';
-
-	export let session: Session;
 	export let data: SuperValidated<Infer<FormSchema>>;
 
 	const form = superForm(data, {

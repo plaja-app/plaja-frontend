@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Avatar from '$lib/components/shadcn-ui/avatar/index';
 	import Search from '$lib/components/layouts/Search.svelte';
+	import * as Accordion from '$lib/components/shadcn-ui/accordion/index';
 	import { Separator } from '$lib/components/shadcn-ui/separator';
 	import {
 		IconBooks,
@@ -12,15 +13,17 @@
 	import type { PageData } from './$types';
 	import { formatDate } from '$lib/utils';
 	import { Button } from '$lib/components/shadcn-ui/button';
+	import CourseCardMini from '$lib/components/cards/CourseCardMini.svelte';
+	import CourseCardProfile from '$lib/components/cards/CourseCardProfile.svelte';
 
 	export let data: PageData;
 
 	$: user = data.user[0] as User;
 </script>
 
-<div class="mx-72 my-24 pt-12">
+<div class="mx-72 my-24 pt-8">
 	<div class="grid grid-cols-[min-content_1fr] gap-24">
-		<div>
+		<div class="sticky top-20 -mt-10 z-10 pt-10 self-start">
 			<div class="mb-5">
 				<Avatar.Root class="size-48">
 					<Avatar.Image src={user.ProfilePic} alt="User {user.ID}" />
@@ -78,29 +81,44 @@
 
 		<div>
 			<div class="mb-4">
-				<p class="text-xl font-medium">Курси</p>
-				<p class="text-muted-foreground">
+				{#if data.enrolledIn.length === 0}
+					<p class="text-xl font-medium">Курси</p>
+					<p class="text-muted-foreground">
 					{#if data.session?.User?.ID === user.ID}
 						Ви ще не берете участь у жодному курсі.
 					{:else}
 						Користувач не бере участь у жодному курсі.
 					{/if}
 				</p>
+					{:else}
+					<Accordion.Root>
+						<Accordion.Item value="courses">
+							<Accordion.Trigger class="text-xl font-medium">Курси</Accordion.Trigger>
+							<Accordion.Content>
+								{#each data.enrolledIn as course}
+									<div class="mt-3">
+										<CourseCardProfile course={course}/>
+									</div>
+								{/each}
+							</Accordion.Content>
+						</Accordion.Item>
+					</Accordion.Root>
+					{/if}
 			</div>
 
 			<div>
 				<p class="text-xl font-medium">Сертифікати</p>
 				<p class="text-muted-foreground">
-					{#if data.certificatesCount === 0}
+					{#if data.stats.totalCertificates === 0}
 						{#if data.session?.User?.ID === user.ID}
 							Ви ще не отримали жодного сертифікату.
 						{:else}
 							Користувач ще не отримав жодного сертифікату.
 						{/if}
 					{:else if data.session?.User?.ID === user.ID}
-						Ви отримали {data.certificatesCount} сертифікатів.
+						Ви отримали {data.stats.totalCertificates} сертифікатів.
 					{:else}
-						Користувач отримав {data.certificatesCount} сертифікатів.
+						Користувач отримав {data.stats.totalCertificates} сертифікатів.
 					{/if}
 				</p>
 			</div>

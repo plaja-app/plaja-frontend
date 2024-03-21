@@ -5,7 +5,7 @@
 	export let data: PageData;
 </script>
 
-<div class="max-w-screen-lg flex-1 pr-20">
+<div class="max-w-screen-lg flex-1 pr-20 h-[600px]">
 	<div class="mx-6 my-5">
 		<ExerciseForm session={data.session} data={data.form} exercises={data.exercises} />
 	</div>
